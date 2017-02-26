@@ -1,4 +1,4 @@
-# pug,sass,TypeScript,gulpをつ方ハイカラなフロントエンド開発環境です
+# pug,sass,TypeScript,gulpを使ったハイカラなフロントエンド開発環境です
 #####ついでにサーバサイドにRevel(Go言語)、エディタにVSCodeを使っています
 
 ## Getting Started
