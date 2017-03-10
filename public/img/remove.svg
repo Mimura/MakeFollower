@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="326px" height="227px" viewBox="0 0 326 227" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Rectangle 5 Copy 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-1">
+            <feGaussianBlur stdDeviation="0" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="0" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-3">
+            <feGaussianBlur stdDeviation="0" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop" transform="translate(-684.000000, -750.000000)">
+            <g id="how-it-works-section-copy" transform="translate(0.000000, 588.088889)">
+                <g id="features" transform="translate(17.600000, 161.565101)">
+                    <g id="fav" transform="translate(667.044444, 1.000000)">
+                        <rect id="Rectangle-5-Copy-2" x="0.688888889" y="0" width="324" height="226"></rect>
+                        <g id="kataomoi" transform="translate(98.288889, 15.432215)" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M28.4444444,9.27299329 C35.3778781,-2.38160808 39.5586123,-0.494672623 47.3649465,10.2793589 C59.7859643,-11.386579 69.6888889,10.2793589 69.6888889,10.2793589" id="Path-2-Copy-6" stroke="#FFCE00" stroke-width="4.26666667" filter="url(#filter-1)"></path>
+                            <g id="かもめBig-Copy" transform="translate(0.000000, 94.153020)">
+                                <path d="M0,22.3782851 C17.9936719,-7.86777806 28.8435281,-2.97079641 49.1025546,24.9900086 C81.3376243,-31.2375108 107.03773,24.9900086 107.03773,24.9900086" id="Path-2-Copy-2" stroke="#606060" stroke-width="22.7555556" filter="url(#filter-2)"></path>
+                                <path d="M0,22.3782851 C17.9936719,-7.86777806 28.8435281,-2.97079641 49.1025546,24.9900086 C81.3376243,-31.2375108 107.03773,24.9900086 107.03773,24.9900086" id="Path-2-Copy" stroke="#FFCE00" stroke-width="14.2222222" filter="url(#filter-3)"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

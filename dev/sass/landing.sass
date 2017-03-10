@@ -1,14 +1,109 @@
 //rgbaの警告がきになるならつける// sass-lint:disable no-color-literals
 $color-header:  #99c000
 $white: #fff
-
+$color-top-start: #3f77ca 0%
+$color-top-middle: #53a0fe 47%
+$color-top-end: #7cfdf1 100%
+$desktop-width: 1024px
+$color-under-end: #77f2f2
 
 = text-shadow-white($opacity: .4)
   text-shadow: 0 1px 0 rgba($white, $opacity)
 
-.jumbotron
-  background-color: $color-header
-
 .test-text
   +text-shadow-white(1)
   background-color: $color-header
+
+// top  //
+.top-bg
+  background-image: linear-gradient(to top, $color-top-start, $color-top-middle , $color-top-end)
+  height: 600px
+  margin: 0 auto
+  position: relative
+  width: $desktop-width
+
+.theme-text
+  color: $white
+  font-size: 34.13px
+  letter-spacing: .89px
+  position: absolute
+  text-shadow: 0 2px 4px rgba(0, 0, 0, .9)
+
+.theme-sub-text
+  color: $white
+  letter-spacing: .89px
+  text-shadow: 0 2px 4px rgba(0, 0, 0, .9)
+
+%svg-wave
+  bottom: 0
+  left: 50%
+  position: absolute
+  transform: translate3d(-50%, 0, 0)
+
+.svg-wave-front
+  @extend %svg-wave
+
+.svg-wave-back-small
+  @extend %svg-wave
+
+.svg-wave-back-big
+  @extend %svg-wave
+
+.svg-camome
+  margin: 10px auto auto 568px
+
+//^^^ top ^^^//
+
+// middle //
+.middle
+  background-color: $color-header
+  height: 512px
+  margin: 0 auto
+  width: $desktop-width
+
+.title-middle
+  background-color: pink
+  display: table-cell
+  height: 166px
+  margin: 0 auto
+  text-align: center
+  vertical-align: middle
+  width: $desktop-width
+
+
+$img-margin-right: 5px
+
+.middle-rapper
+  background-color: gray
+  display: flex
+  height: 500px
+  justify-content: center
+
+  div
+    background-color: blue
+    height: 224px
+    margin-right: $img-margin-right
+    position: relative
+    width: 324px
+
+    &:last-child
+      margin-right: 0
+      width: 324px
+
+  .svg-vec
+    left: 0
+    position: absolute
+    top: 0
+
+
+
+
+//^^^ middle ^^^//
+
+// under
+.under
+  background-image: linear-gradient(-180deg, $white 0%, $color-under-end 100%)
+  height: 512px
+  margin: 0 auto
+  width: $desktop-width
+//^^^under

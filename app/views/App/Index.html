@@ -9,22 +9,41 @@
     <link href="/public/css/landing.css" rel="stylesheet">
     <script src="/public/js/jquery-2.2.4.min.js"></script>
     <script src="/public/js/bootstrap-3.3.6.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vivus/0.3.2/vivus.js"></script>
   </head>
-  <header class="jumbotron">
-    <div class="container">
-      <div class="row"> 
-        <h1>It works!
-          <p></p>
-        </h1>
-      </div>
-    </div>
+  <header class="top-bg">
+    <div class="theme-text">MakeFollowerTool</div>
+    <div class="theme-sub-text">MakeFollowerToolでフォロワーを増やしましょう！</div>
+    <object class="svg-camome" id="x-svg-camome" data="/public/img/camome.svg" type="image/svg+xml"></object>
+    <object class="svg-wave-front" id="x-wave-front" data="/public/img/wave-front.svg" type="image/svg+xml"></object>
+    <object class="svg-wave-back-small" id="x-wave-back-small" data="/public/img/wave-back-small.svg" type="image/svg+xml"></object>
+    <object class="svg-wave-back-big" id="x-wave-back-big" data="/public/img/wave-back-big.svg" type="image/svg+xml"></object>
   </header>
   <body>
+    <div class="middle">
+      <h2 class="title-middle">How it works?</h2>
+      <div class="middle-rapper">
+        <div>
+          <object class="svg-follower" id="x-follower" data="/public/img/follower.svg" type="image/svg+xml"></object>
+          <object class="svg-vec" id="x-follower-vec" data="/public/img/follower-vec.svg" type="image/svg+xml"></object>
+        </div>
+        <div>
+          <object class="svg-return" id="x-return" data="/public/img/return.svg" type="image/svg+xml"></object>
+          <object class="svg-vec" id="x-return-vec" data="/public/img/return-vec.svg" type="image/svg+xml"></object>
+        </div>
+        <div>
+          <object class="svg-remove" id="x-remove" data="/public/img/remove.svg" type="image/svg+xml"></object>
+          <object class="svg-vec" id="x-remove-vec" data="/public/img/remove-vec.svg" type="image/svg+xml"></object>
+          <object class="svg-vec" id="x-peke" data="/public/img/peke.svg" type="image/svg+xml"></object>
+        </div>
+      </div>
+    </div>
+    <div class="under"></div>
     <div class="container">
       <div class="row">
         <div class="span6">{{template "flash.html" .}}</div>
       </div>
     </div>
-    <div class="test-text">testttest</div>
+    <script src="/public/js/test.js"></script>
   </body>
 </html>

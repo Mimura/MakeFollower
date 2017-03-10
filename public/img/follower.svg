@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="325px" height="227px" viewBox="0 0 325 227" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Rectangle 5 Copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-1">
+            <feGaussianBlur stdDeviation="0" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="0" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-3">
+            <feGaussianBlur stdDeviation="0" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-4">
+            <feGaussianBlur stdDeviation="0" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-5">
+            <feGaussianBlur stdDeviation="0" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop" transform="translate(-17.000000, -750.000000)">
+            <g id="how-it-works-section-copy" transform="translate(0.000000, 588.088889)">
+                <g id="features" transform="translate(16.600000, 161.565101)">
+                    <g id="register">
+                        <rect id="Rectangle-5-Copy" x="1" y="1" width="324" height="226"></rect>
+                        <g id="follow" transform="translate(101.000000, 41.860403)" stroke-linecap="round" stroke-linejoin="round">
+                            <g id="かもめBig-Copy-2">
+                                <path d="M0,22.3782851 C17.9936719,-7.86777806 28.8435281,-2.97079641 49.1025546,24.9900086 C81.3376243,-31.2375108 107.03773,24.9900086 107.03773,24.9900086" id="Path-2-Copy-2" stroke="#606060" stroke-width="22.7555556" filter="url(#filter-1)"></path>
+                                <path d="M0,22.3782851 C17.9936719,-7.86777806 28.8435281,-2.97079641 49.1025546,24.9900086 C81.3376243,-31.2375108 107.03773,24.9900086 107.03773,24.9900086" id="Path-2-Copy" stroke="#FFCE00" stroke-width="14.2222222" filter="url(#filter-2)"></path>
+                            </g>
+                            <path d="M46.8369115,97.3512686 C53.7703452,85.6966672 57.9510793,87.5836027 65.7574136,98.3576342 C78.1784313,76.6916963 88.0813559,98.3576342 88.0813559,98.3576342" id="Path-2-Copy-3" stroke="#FFCE00" stroke-width="4.26666667" filter="url(#filter-3)"></path>
+                            <path d="M92.2757062,80.4462858 C99.2091399,68.7916844 103.389874,70.6786199 111.196208,81.4526513 C123.617226,59.7867135 133.520151,81.4526513 133.520151,81.4526513" id="Path-2-Copy-4" stroke="#FFCE00" stroke-width="4.26666667" filter="url(#filter-4)"></path>
+                            <path d="M123.733333,104.113262 C130.666767,92.4586604 134.847501,94.3455958 142.653835,105.119627 C155.074853,83.4536894 164.977778,105.119627 164.977778,105.119627" id="Path-2-Copy-5" stroke="#FFCE00" stroke-width="4.26666667" filter="url(#filter-5)"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

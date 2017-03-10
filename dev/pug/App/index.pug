@@ -3,23 +3,42 @@ doctype html
 html(lang="ja")
 
   - var title = "タイトル";
-  - var myScripts=[];
+  - var myScripts=["https://cdnjs.cloudflare.com/ajax/libs/vivus/0.3.2/vivus.js"];
   - var myStyles=["/public/css/landing.css"];
   include ../templete/_head.pug
 
-  header.jumbotron
-    div.container
-      div.row 
-        h1 It works!
-          p
+  header.top-bg
+    div.theme-text MakeFollowerTool
+    div.theme-sub-text MakeFollowerToolでフォロワーを増やしましょう！
+    object.svg-camome#x-svg-camome(data="/public/img/camome.svg" type="image/svg+xml")
+    object.svg-wave-front#x-wave-front(data="/public/img/wave-front.svg" type="image/svg+xml")
+    object.svg-wave-back-small#x-wave-back-small(data="/public/img/wave-back-small.svg" type="image/svg+xml")
+    object.svg-wave-back-big#x-wave-back-big(data="/public/img/wave-back-big.svg" type="image/svg+xml")
 
   body
+    div.middle
+      h2.title-middle How it works?
+      div.middle-rapper
+        div
+          object.svg-follower#x-follower(data="/public/img/follower.svg" type="image/svg+xml")
+          object.svg-vec#x-follower-vec(data="/public/img/follower-vec.svg" type="image/svg+xml")
+        div
+          object.svg-return#x-return(data="/public/img/return.svg" type="image/svg+xml")
+          object.svg-vec#x-return-vec(data="/public/img/return-vec.svg" type="image/svg+xml")
+        div
+          object.svg-remove#x-remove(data="/public/img/remove.svg" type="image/svg+xml")
+          object.svg-vec#x-remove-vec(data="/public/img/remove-vec.svg" type="image/svg+xml")
+          object.svg-vec#x-peke(data="/public/img/peke.svg" type="image/svg+xml")
+
+    div.under
 
     div.container
       div.row
         div.span6 {{template "flash.html" .}}
 
-    div.test-text testttest
+    script(src="/public/js/test.js")
+
     
   include ../templete/_footer.pug
+
 

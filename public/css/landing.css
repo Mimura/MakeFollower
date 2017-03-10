@@ -1,8 +1,73 @@
-.jumbotron {
-  background-color: #99c000; }
-
 .test-text {
   text-shadow: 0 1px 0 white;
   background-color: #99c000; }
+
+.top-bg {
+  background-image: linear-gradient(to top, #3f77ca 0%, #53a0fe 47%, #7cfdf1 100%);
+  height: 600px;
+  margin: 0 auto;
+  position: relative;
+  width: 1024px; }
+
+.theme-text {
+  color: #fff;
+  font-size: 34.13px;
+  letter-spacing: .89px;
+  position: absolute;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9); }
+
+.theme-sub-text {
+  color: #fff;
+  letter-spacing: .89px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9); }
+
+.svg-wave-front, .svg-wave-back-small, .svg-wave-back-big {
+  bottom: 0;
+  left: 50%;
+  position: absolute;
+  transform: translate3d(-50%, 0, 0); }
+
+.svg-camome {
+  margin: 10px auto auto 568px; }
+
+.middle {
+  background-color: #99c000;
+  height: 512px;
+  margin: 0 auto;
+  width: 1024px; }
+
+.title-middle {
+  background-color: pink;
+  display: table-cell;
+  height: 166px;
+  margin: 0 auto;
+  text-align: center;
+  vertical-align: middle;
+  width: 1024px; }
+
+.middle-rapper {
+  background-color: gray;
+  display: flex;
+  height: 500px;
+  justify-content: center; }
+  .middle-rapper div {
+    background-color: blue;
+    height: 224px;
+    margin-right: 5px;
+    position: relative;
+    width: 324px; }
+    .middle-rapper div:last-child {
+      margin-right: 0;
+      width: 324px; }
+  .middle-rapper .svg-vec {
+    left: 0;
+    position: absolute;
+    top: 0; }
+
+.under {
+  background-image: linear-gradient(-180deg, #fff 0%, #77f2f2 100%);
+  height: 512px;
+  margin: 0 auto;
+  width: 1024px; }
 
 /*# sourceMappingURL=../map/sassMap/landing.css.map */

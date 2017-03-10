@@ -49,22 +49,11 @@
 
 /***/ },
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var hoge = __webpack_require__(2);
-	hoge.func1();
-
-
-/***/ },
-/* 2 */
 /***/ function(module, exports) {
 
-	"use strict";
-	function func1() {
-	    alert('外部のモジュールだよ');
-	}
-	exports.func1 = func1;
+	$(window).load(function () {
+	    new Vivus('x-svg-camome', { start: 'autostart', type: 'oneByOne', duration: 100 });
+	});
 
 
 /***/ }
