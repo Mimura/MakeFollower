@@ -14,7 +14,7 @@ function TweenButton(delay = 0) :void{
     TweenMax.from('#x-top-button', 1, { y: 200, autoAlpha:0, delay:delay});
 }
 
-function TweenTheme(delay = 0,callBack? :() => void) :void{
+function TweenTheme(delay = 0,callBack :() => void = null) :void{
     TweenMax.from('#x-theme-wrapper', 1, { y: -400, autoAlpha: 0, delay: delay,onComplete: callBack});
 }
 

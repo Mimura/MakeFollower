@@ -57,7 +57,7 @@
 	function TweenButton(delay = 0) {
 	    TweenMax.from('#x-top-button', 1, { y: 200, autoAlpha: 0, delay: delay });
 	}
-	function TweenTheme(delay = 0, callBack) {
+	function TweenTheme(delay = 0, callBack = null) {
 	    TweenMax.from('#x-theme-wrapper', 1, { y: -400, autoAlpha: 0, delay: delay, onComplete: callBack });
 	}
 	$(window).load(function () {
