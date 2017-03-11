@@ -15,7 +15,8 @@
   position: absolute;
   top: 300px;
   transform: translate3d(0, -50%, 0);
-  left: 100px; }
+  left: 100px;
+  visibility: hidden; }
 
 .theme-text {
   color: #fff;
@@ -26,6 +27,7 @@
 .theme-sub-text {
   color: #fff;
   letter-spacing: .89px;
+  margin: 0 auto 30px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9); }
 
 .theme-button-top, .theme-button-under {
@@ -42,7 +44,7 @@
   width: 200px; }
 
 .theme-button-top {
-  margin: 30px auto auto; }
+  visibility: hidden; }
 
 .svg-wave-front, .svg-wave-back-small, .svg-wave-back-big {
   bottom: 0;

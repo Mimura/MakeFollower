@@ -10,6 +10,7 @@
     <script src="/public/js/jquery-2.2.4.min.js"></script>
     <script src="/public/js/bootstrap-3.3.6.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vivus/0.3.2/vivus.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
   </head>
   <header class="top">
     <div class="top-bg">
@@ -19,10 +20,10 @@
       <object class="svg-wave-back-big" id="x-wave-back-big" data="/public/img/wave-back-big.svg" type="image/svg+xml"></object>
       <object class="svg-camome-main" id="x-svg-camome-main" data="/public/img/camome-main.svg" type="image/svg+xml"></object>
     </div>
-    <div class="theme-wrapper">
+    <div class="theme-wrapper" id="x-theme-wrapper">
       <div class="theme-text">MakeFollowerTool</div>
       <div class="theme-sub-text">MakeFollowerToolでフォロワーを増やしましょう！</div>
-      <button class="theme-button-top" type="button" onclick="window.open('test.htm')">CommingSoon</button>
+      <button class="theme-button-top" id="x-top-button" type="button" onclick="location.href='http://localhost:9000/'">CommingSoon</button>
     </div>
   </header>
   <body>
@@ -49,8 +50,8 @@
     </div>
     <div class="under">
       <div class="under-wrapper">
-        <p class="under-text">もちろん無料です。使ってみてください！</p>
-        <button class="theme-button-under" type="button" onclick="window.open('test.htm')">CommingSoon</button>
+        <p class="under-text">もちろん無料。</p>
+        <button class="theme-button-under" type="button" onclick="location.href='http://localhost:9000/'">CommingSoon</button>
       </div>
     </div>
     <div class="container">

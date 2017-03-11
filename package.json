@@ -35,6 +35,7 @@
     "webpack-stream": "^3.2.0"
   },
   "dependencies": {
+    "@types/greensock": "^1.15.32",
     "@types/jquery": "^2.0.40",
     "@types/vivus": "^0.4.0"
   }
