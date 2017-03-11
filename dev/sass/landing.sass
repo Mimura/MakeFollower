@@ -1,38 +1,77 @@
 //rgbaの警告がきになるならつける// sass-lint:disable no-color-literals
-$color-header:  #99c000
+
+$desktop-width: 1024px
+
+$top-height: 600px
+
+//色宣言
+
 $white: #fff
+$color-text: #3f3f3f
+$gray: rgb(200, 200, 200)
+$yellow: #ffd54a
+//トップのバックグラウンドよう
 $color-top-start: #3f77ca 0%
 $color-top-middle: #53a0fe 47%
 $color-top-end: #7cfdf1 100%
-$desktop-width: 1024px
+//アンダーのバックグラウンドよう
 $color-under-end: #77f2f2
 
-= text-shadow-white($opacity: .4)
-  text-shadow: 0 1px 0 rgba($white, $opacity)
+//^^^色宣言^^^
 
-.test-text
-  +text-shadow-white(1)
-  background-color: $color-header
+=children-center
+  text-align: center
+
+=vertical-center
+  position: absolute
+  top: $top-height / 2
+  transform: translate3d(0, -50%, 0)
 
 // top  //
-.top-bg
-  background-image: linear-gradient(to top, $color-top-start, $color-top-middle , $color-top-end)
-  height: 600px
+.top
+  height: $top-height
   margin: 0 auto
   position: relative
   width: $desktop-width
+
+.top-bg
+  background-image: linear-gradient(to top, $color-top-start, $color-top-middle , $color-top-end)
+  height: $top-height
+  position: absolute
+  width: $desktop-width
+
+.theme-wrapper
+  +children-center
+  +vertical-center
+  left: 100px
 
 .theme-text
   color: $white
   font-size: 34.13px
   letter-spacing: .89px
-  position: absolute
   text-shadow: 0 2px 4px rgba(0, 0, 0, .9)
 
 .theme-sub-text
   color: $white
   letter-spacing: .89px
   text-shadow: 0 2px 4px rgba(0, 0, 0, .9)
+
+%theme-button
+  background: $yellow
+  border: 1px solid $white
+  border-radius: 87px
+  box-shadow: 4px 6px 4px 2px rgba(0, 0, 0, .5)
+  color: $white
+  display: inline-block
+  font-size: 24px
+  height: 60px
+  letter-spacing: .63px
+  padding: 10px
+  width: 200px
+
+.theme-button-top
+  @extend %theme-button
+  margin: 30px auto auto
 
 %svg-wave
   bottom: 0
@@ -50,19 +89,26 @@ $color-under-end: #77f2f2
   @extend %svg-wave
 
 .svg-camome
-  margin: 10px auto auto 568px
+  height: 537px
+  left: 568px
+  position: absolute
+  top: 10px
+  width: 449px
+
+.svg-camome-main
+  left: 568px
+  position: absolute
+  top: 10px
 
 //^^^ top ^^^//
 
 // middle //
 .middle
-  background-color: $color-header
   height: 512px
   margin: 0 auto
   width: $desktop-width
 
 .title-middle
-  background-color: pink
   display: table-cell
   height: 166px
   margin: 0 auto
@@ -70,30 +116,41 @@ $color-under-end: #77f2f2
   vertical-align: middle
   width: $desktop-width
 
-
 $img-margin-right: 5px
+$middle-img-width: 324px
 
 .middle-rapper
-  background-color: gray
+  +children-center
   display: flex
   height: 500px
   justify-content: center
 
   div
-    background-color: blue
+    border-right: 2px solid $gray
     height: 224px
     margin-right: $img-margin-right
     position: relative
-    width: 324px
+    width: $middle-img-width
 
     &:last-child
+      border-right: 0
       margin-right: 0
-      width: 324px
+      width: $middle-img-width
 
   .svg-vec
     left: 0
     position: absolute
     top: 0
+
+  .middle-text
+    color: $color-text
+    font-size: 15px
+    left: 50%
+    letter-spacing: .2em
+    position: absolute
+    top: 160px
+    transform: translate3d(-50%, 0, 0)
+    width: $middle-img-width * .8
 
 
 
@@ -102,8 +159,25 @@ $img-margin-right: 5px
 
 // under
 .under
+  +children-center
   background-image: linear-gradient(-180deg, $white 0%, $color-under-end 100%)
   height: 512px
   margin: 0 auto
+  position: relative
   width: $desktop-width
+
+  .under-wrapper
+    +vertical-center
+    width: $desktop-width
+
+.under-text
+  color: $white
+  font-size: 35.56px
+  letter-spacing: .93px
+  text-shadow: 0 2px 6px #4F7A7A
+
+.theme-button-under
+  @extend %theme-button
+  margin: 50px 0
+
 //^^^under

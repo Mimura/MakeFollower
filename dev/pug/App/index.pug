@@ -7,13 +7,17 @@ html(lang="ja")
   - var myStyles=["/public/css/landing.css"];
   include ../templete/_head.pug
 
-  header.top-bg
-    div.theme-text MakeFollowerTool
-    div.theme-sub-text MakeFollowerToolでフォロワーを増やしましょう！
-    object.svg-camome#x-svg-camome(data="/public/img/camome.svg" type="image/svg+xml")
-    object.svg-wave-front#x-wave-front(data="/public/img/wave-front.svg" type="image/svg+xml")
-    object.svg-wave-back-small#x-wave-back-small(data="/public/img/wave-back-small.svg" type="image/svg+xml")
-    object.svg-wave-back-big#x-wave-back-big(data="/public/img/wave-back-big.svg" type="image/svg+xml")
+  header.top
+    div.top-bg
+      div.svg-camome#x-svg-camome
+      object.svg-wave-front#x-wave-front(data="/public/img/wave-front.svg" type="image/svg+xml")
+      object.svg-wave-back-small#x-wave-back-small(data="/public/img/wave-back-small.svg" type="image/svg+xml")
+      object.svg-wave-back-big#x-wave-back-big(data="/public/img/wave-back-big.svg" type="image/svg+xml")
+      object.svg-camome-main#x-svg-camome-main(data="/public/img/camome-main.svg" type="image/svg+xml")
+    div.theme-wrapper
+      div.theme-text MakeFollowerTool
+      div.theme-sub-text MakeFollowerToolでフォロワーを増やしましょう！
+      button.theme-button-top(type="button" onclick="window.open('test.htm')") CommingSoon
 
   body
     div.middle
@@ -22,15 +26,26 @@ html(lang="ja")
         div
           object.svg-follower#x-follower(data="/public/img/follower.svg" type="image/svg+xml")
           object.svg-vec#x-follower-vec(data="/public/img/follower-vec.svg" type="image/svg+xml")
+          p.middle-text 自分に興味のありそうな人を
+            br 
+            |簡単にフォロー！
         div
           object.svg-return#x-return(data="/public/img/return.svg" type="image/svg+xml")
           object.svg-vec#x-return-vec(data="/public/img/return-vec.svg" type="image/svg+xml")
+          p.middle-text フォローしてくれている人を
+            br
+            |簡単にフォロー！
         div
           object.svg-remove#x-remove(data="/public/img/remove.svg" type="image/svg+xml")
           object.svg-vec#x-remove-vec(data="/public/img/remove-vec.svg" type="image/svg+xml")
           object.svg-vec#x-peke(data="/public/img/peke.svg" type="image/svg+xml")
+          p.middle-text 片思いをなくす！
 
     div.under
+      div.under-wrapper
+        p.under-text もちろん無料です。使ってみてください！
+        button.theme-button-under(type="button" onclick="window.open('test.htm')") CommingSoon
+
 
     div.container
       div.row
@@ -38,7 +53,7 @@ html(lang="ja")
 
     script(src="/public/js/test.js")
 
-    
+
   include ../templete/_footer.pug
 
 
