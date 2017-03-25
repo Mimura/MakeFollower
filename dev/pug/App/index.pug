@@ -4,8 +4,9 @@ html(lang="ja")
 
   - var title = "タイトル";
   - var myScripts=[];
-  - myScripts.push("https://cdnjs.cloudflare.com/ajax/libs/vivus/0.3.2/vivus.js");
+  - myScripts.push("//cdnjs.cloudflare.com/ajax/libs/vivus/0.3.2/vivus.js");
   - myScripts.push("//cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js");
+  - myScripts.push("//cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg.js");
   - var myStyles=["/public/css/landing.css"];
 
   - var openPage="location.href='http://make-follower.3jigen.net'"
@@ -18,7 +19,11 @@ html(lang="ja")
       object.svg-wave-front#x-wave-front(data="/public/img/wave-front.svg" type="image/svg+xml")
       object.svg-wave-back-small#x-wave-back-small(data="/public/img/wave-back-small.svg" type="image/svg+xml")
       object.svg-wave-back-big#x-wave-back-big(data="/public/img/wave-back-big.svg" type="image/svg+xml")
-      object.svg-camome-main#x-svg-camome-main(data="/public/img/camome-main.svg" type="image/svg+xml")
+      //object.svg-camome-main#x-svg-camome-main(data="/public/img/camome-main.svg" type="image/svg+xml")
+      include ../templete/_camome-main.pug
+
+
+
     div.theme-wrapper#x-theme-wrapper
       div.theme-text MakeFollowerTool
       div.theme-sub-text MakeFollowerToolでフォロワーを増やしましょう！

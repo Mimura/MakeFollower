@@ -37,6 +37,7 @@
   "dependencies": {
     "@types/greensock": "^1.15.32",
     "@types/jquery": "^2.0.40",
+    "@types/snapsvg": "^0.4.27",
     "@types/vivus": "^0.4.0"
   }
 }

@@ -24,3 +24,9 @@ $(window).load(function () {
     TweenTheme(0.1,() => AnimationTop());
     TweenButton(7.5);
 });
+
+// var $svg = Snap( '#svg path' ); //動かしたいpath要素
+// var path = 'M22,62c0,0,68-52,156-46s100,34,196,34S512,7,566,15.5S740,18,740,102s-58,152-28,182s-217.2,52-321.6,0S110,356,52,306s8-920-152S8,142,22,62z'; //アニメーション後のパス
+
+// $svg.animate({d: path }, 3000 );
+//要素.animate({d: 移動後のパス }, 'アニメーション時間' );

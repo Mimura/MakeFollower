@@ -1,5 +1,5 @@
-hash: d1d42175c21e578a6719e48ab94b87ea10a98d06fdd64f905305fb8d132cd2a7
-updated: 2017-02-15T09:03:14.156146605+09:00
+hash: ceca3ed69dff2f1a8bf93faf0557c2c3e91ebcae8e971c0c8dbfb27f9bbafd12
+updated: 2017-03-25T23:29:23.450836543+09:00
 imports:
 - name: github.com/agtorre/gocolorize
   version: f42b554bf7f006936130c9bb4f971afd2d87f671
@@ -13,18 +13,8 @@ imports:
   version: 09cded8978dc9e80714c4d85b0322337b0a1e5e0
 - name: github.com/klauspost/crc32
   version: cb6bfca970f6908083f26f39a79009d608efd5cd
-- name: github.com/revel/config
-  version: 75f5ee659b5338d1ce823536fe9b9e50b4de01b4
-- name: github.com/revel/modules
-  version: 53ac311713e228b1f91a1a6d34445446a67951b3
-  subpackages:
-  - static/app/controllers
-  - testrunner/app
-  - testrunner/app/controllers
-- name: github.com/revel/revel
-  version: 8d01a054f6bca9430b3e497fe7b4f20ec8f054ce
-  subpackages:
-  - testing
+- name: github.com/mrjones/oauth
+  version: 3f67d9c274355678b2f9844b08d643e2f9213340
 - name: github.com/robfig/pathtree
   version: 41257a1839e945fce74afd070e02bab2ea2c776a
 - name: golang.org/x/net
