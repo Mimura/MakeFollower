@@ -8,7 +8,6 @@ type User struct {
 	AccessToken  *oauth.AccessToken
 }
 
-//サーバーに保存されて行くっぽいのでクッキーに変更する
 func FindOrCreate(username string) *User {
 	if user, ok := db[username]; ok {
 		return user
