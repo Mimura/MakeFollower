@@ -1,0 +1,33 @@
+doctype html
+
+html(lang="ja")
+
+  - var title = "Search";
+  - var myScripts=[];
+  - var myStyles=["/public/css/landing.css"];
+
+  - var openPage="location.href='/App/Authenticate'"
+
+  include ../templete/_head.pug
+
+  header
+
+  body
+    form#mainForm(action="getSearch" method="GET")
+      input#searchValue(name="searchValue" type="")
+      input#searchButton(name="searchButton" type="submit")
+
+
+    h2 @つき
+
+    div.
+      <ul>
+      {{range .mentions}}
+        <li>{{.Text}}</li>
+      {{end}}
+      </ul>
+
+
+  //- script(src="/public/js/searchList.js")
+
+  include ../templete/_footer.pug

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>Search</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/public/img/favicon.png" rel="shortcut icon">
+    <link href="/public/css/bootstrap-3.3.6.min.css" rel="stylesheet">
+    <link href="/public/css/landing.css" rel="stylesheet">
+    <script src="/public/js/jquery-2.2.4.min.js"></script>
+    <script src="/public/js/bootstrap-3.3.6.min.js"></script>
+  </head>
+  <header></header>
+  <body>
+    <form id="mainForm" action="getSearch" method="GET">
+      <input id="searchValue" name="searchValue" type="">
+      <input id="searchButton" name="searchButton" type="submit">
+    </form>
+    <h2>@つき</h2>
+    <div>
+      <ul>
+      {{range .mentions}}
+        <li>{{.Text}}</li>
+      {{end}}
+      </ul>
+      
+      
+    </div>
+  </body>
+</html>

@@ -32,7 +32,14 @@ func (c App) Index() revel.Result {
 	if user.AccessToken == nil {
 		return c.Render()
 	}
+	return c.Redirect(App.SearchList)
+}
 
+func (c App) SearchList() revel.Result {
+	user := getUser()
+	if user.AccessToken == nil {
+		return c.Redirect(App.Index)
+	}
 	// We have a token, so look for mentions.
 	resp, err := TWITTER.Get(
 		"https://api.twitter.com/1.1/statuses/mentions_timeline.json",
@@ -53,7 +60,42 @@ func (c App) Index() revel.Result {
 		revel.ERROR.Println(err)
 	}
 	revel.INFO.Println(mentions)
+
 	return c.Render(mentions)
+}
+
+func (c App) GetSearch(status string) revel.Result {
+	user := getUser()
+	if user.AccessToken == nil {
+		return c.Redirect(App.Index)
+	}
+	// We have a token, so look for mentions.
+	resp, err := TWITTER.Get(
+		"https://api.twitter.com/1.1/search/tweets.json",
+		map[string]string{"q": "おやすみ"},
+		user.AccessToken)
+	if err != nil {
+		revel.ERROR.Println(err)
+		return c.Render()
+	}
+	defer resp.Body.Close()
+
+	b, err := ioutil.ReadAll(resp.Body)
+
+	// decode
+	var result interface{}
+	err = json.Unmarshal(b, &result)
+
+	revel.INFO.Println(result)
+
+	return c.RenderJson(result)
+}
+
+type SearchResult struct {
+	statuses Statuses `json:statuses`
+}
+type Statuses struct {
+	Text []string `json:text`
 }
 
 func (c App) SetStatus(status string) revel.Result {

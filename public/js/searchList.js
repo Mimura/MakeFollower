@@ -44,29 +44,38 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(2);
+	module.exports = __webpack_require__(1);
 
 
 /***/ },
-/* 1 */,
-/* 2 */
+/* 1 */
 /***/ function(module, exports) {
 
-	function AnimationTop() {
-	    let camome = new Vivus('x-svg-camome', { start: "autostart", file: '/public/img/camome.svg', type: 'oneByOne', duration: 800 });
-	}
-	function TweenButton(delay = 0) {
-	    TweenMax.from('#x-top-button', 1, { y: 200, autoAlpha: 0, delay: delay });
-	}
-	function TweenTheme(delay = 0, callBack = null) {
-	    TweenMax.from('#x-theme-wrapper', 1, { y: -400, autoAlpha: 0, delay: delay, onComplete: callBack });
-	}
-	$(window).load(function () {
-	    TweenTheme(0.1, () => AnimationTop());
-	    TweenButton(0);
+	jQuery(function ($) {
+	    $('#mainForm').submit(function (event) {
+	        event.preventDefault();
+	        var $form = $(this);
+	        var $button = $form.find('button');
+	        $.ajax({
+	            url: $form.attr('action'),
+	            type: $form.attr('method'),
+	            data: $form.serialize(),
+	            dataType: 'json',
+	            timeout: 10000,
+	            beforeSend: function (xhr, settings) {
+	                $button.attr('disabled', 1);
+	            },
+	            complete: function (xhr, textStatus) {
+	                $button.attr('disabled', 0);
+	            },
+	            success: function (result, textStatus, xhr) {
+	                console.log(result);
+	            }
+	        });
+	    });
 	});
 
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=../map/typeScriptMap/test.js.map
+//# sourceMappingURL=../map/typeScriptMap/searchList.js.map

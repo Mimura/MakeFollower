@@ -22,7 +22,8 @@ $(window).load(function () {
     // setTimeout(function(){
     // },1000);
     TweenTheme(0.1,() => AnimationTop());
-    TweenButton(7.5);
+    // TweenButton(7.5);
+    TweenButton(0);
 });
 
 // var $svg = Snap( '#svg path' ); //動かしたいpath要素
