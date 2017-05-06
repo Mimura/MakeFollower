@@ -13,9 +13,12 @@ html(lang="ja")
   header
 
   body
-    form#mainForm(action="getSearch" method="GET")
-      input#searchValue(name="searchValue" type="")
-      input#searchButton(name="searchButton" type="submit")
+    //- 検索用のフォーム。アクション等はtsに記入。
+    form#main-form
+      input#search-word(name="searchWord" type="")
+      input#search-button(name="searchButton" type="submit")
+
+    ul#x-user-list
 
 
     h2 @つき
@@ -28,6 +31,6 @@ html(lang="ja")
       </ul>
 
 
-  //- script(src="/public/js/searchList.js")
+  script(src="/public/js/searchList.js")
 
   include ../templete/_footer.pug

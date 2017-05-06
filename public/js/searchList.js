@@ -52,28 +52,43 @@
 /***/ function(module, exports) {
 
 	jQuery(function ($) {
-	    $('#mainForm').submit(function (event) {
+	    $('#main-form').submit(function (event) {
 	        event.preventDefault();
 	        var $form = $(this);
-	        var $button = $form.find('button');
+	        var $button = $form.find('#search-button');
 	        $.ajax({
-	            url: $form.attr('action'),
-	            type: $form.attr('method'),
+	            url: 'getSearch',
+	            type: 'GET',
 	            data: $form.serialize(),
 	            dataType: 'json',
 	            timeout: 10000,
 	            beforeSend: function (xhr, settings) {
-	                $button.attr('disabled', 1);
+	                $button.prop('disabled', true);
 	            },
 	            complete: function (xhr, textStatus) {
-	                $button.attr('disabled', 0);
+	                $button.prop('disabled', false);
 	            },
 	            success: function (result, textStatus, xhr) {
 	                console.log(result);
+	                let users = result;
+	                SetUserList(users);
 	            }
 	        });
 	    });
 	});
+	function SetUserList(users) {
+	    $("#x-user-list").html('');
+	    users.forEach(user => {
+	        let inner = '<li>' +
+	            '<img class = "list-icon" src="' + user.profile_image_url_https + '" alt="icon">' +
+	            '<div class = "list-name">' + user.name + '<div>' +
+	            '<div class = "list-description">' + user.description + '<div>' +
+	            '<button class = "list-to-follower-button" type="button" onclick="location.href=\'App/followerList\'">' + "フォロワー" + '</button>' +
+	            '<button class = "list-follow-button" type="button" onclick="location.href=\'/App/follow\'">' + "フォロー" + '</button>' +
+	            '</li>';
+	        $("#x-user-list").append(inner);
+	    });
+	}
 
 
 /***/ }

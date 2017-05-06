@@ -1,6 +1,6 @@
 
 jQuery(function ($) {
-    $('#mainForm').submit(function (event) {
+    $('#main-form').submit(function (event) {
         // HTMLでの送信をキャンセル
         event.preventDefault();
 
@@ -9,12 +9,12 @@ jQuery(function ($) {
 
         // 送信ボタンを取得
         // （後で使う: 二重送信を防止する。）
-        var $button = $form.find('button');
+        var $button = $form.find('#search-button');
 
         // 送信
         $.ajax({
-            url: $form.attr('action'),
-            type: $form.attr('method'),
+            url: 'getSearch',
+            type: 'GET',
             data: $form.serialize(),
             dataType: 'json',
             timeout: 10000,  // 単位はミリ秒
@@ -22,25 +22,50 @@ jQuery(function ($) {
             // 送信前
             beforeSend: function (xhr, settings) {
                 // ボタンを無効化し、二重送信を防止
-                $button.attr('disabled', 1);
+                $button.prop('disabled', true);
             },
             // 応答後
             complete: function (xhr, textStatus) {
                 // ボタンを有効化し、再送信を許可
-                $button.attr('disabled', 0);
+                $button.prop('disabled', false);
             },
 
             // 通信成功時の処理
             success: function (result, textStatus, xhr) {
+                //リスト初期化
                 console.log(result);
-                // let Users : User[] = JSON.parse(result);
+                let users : User[] = result as User[];
+
+                SetUserList(users);
             }
         });
     });
 
 })
 
+function SetUserList(users: User[]){
+    //初期化
+    $("#x-user-list").html('');
+
+    users.forEach(user => {
+        let inner = 
+        '<li>'+
+            '<img class = "list-icon" src="'+user.profile_image_url_https+'" alt="icon">'+
+            '<div class = "list-name">'+user.name +'<div>'+
+            '<div class = "list-description">'+user.description+'<div>'+
+            '<button class = "list-to-follower-button" type="button" onclick="location.href=\'App/followerList\'">'+"フォロワー"+'</button>'+
+            '<button class = "list-follow-button" type="button" onclick="location.href=\'/App/follow\'">'+"フォロー"+'</button>'+
+        '</li>';
+
+        $("#x-user-list").append(inner);
+    });
+
+}
+
 interface User {
-    myString: string;
-    myNumber: number;
+    description: string;
+    id: string;
+    name: string;
+    profile_image_url_https: string;
+	screen_name: string;
 }

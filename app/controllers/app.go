@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"encoding/json"
 	"io/ioutil"
 	"makeFollower/app/models"
 
@@ -23,79 +22,12 @@ type App struct {
 	*revel.Controller
 }
 
-// func (c App) Index() revel.Result {
-// 	return c.Render()
-// }
-
 func (c App) Index() revel.Result {
 	user := getUserFromSession(c)
 	if user.AccessToken == nil {
 		return c.Render()
 	}
 	return c.Redirect(App.SearchList)
-}
-
-func (c App) SearchList() revel.Result {
-	user := getUserFromSession(c)
-	if user.AccessToken == nil {
-		return c.Redirect(App.Index)
-	}
-	// We have a token, so look for mentions.
-	resp, err := TWITTER.Get(
-		"https://api.twitter.com/1.1/statuses/mentions_timeline.json",
-		map[string]string{"count": "10"},
-		user.AccessToken)
-	if err != nil {
-		revel.ERROR.Println(err)
-		return c.Render()
-	}
-	defer resp.Body.Close()
-
-	// Extract the mention text.
-	mentions := []struct {
-		Text string `json:text`
-	}{}
-	err = json.NewDecoder(resp.Body).Decode(&mentions)
-	if err != nil {
-		revel.ERROR.Println(err)
-	}
-	revel.INFO.Println(mentions)
-
-	return c.Render(mentions)
-}
-
-func (c App) GetSearch(status string) revel.Result {
-	user := getUserFromSession(c)
-	if user.AccessToken == nil {
-		return c.Redirect(App.Index)
-	}
-	// We have a token, so look for mentions.
-	resp, err := TWITTER.Get(
-		"https://api.twitter.com/1.1/search/tweets.json",
-		map[string]string{"q": "おやすみ"},
-		user.AccessToken)
-	if err != nil {
-		revel.ERROR.Println(err)
-		return c.Render()
-	}
-	defer resp.Body.Close()
-
-	b, err := ioutil.ReadAll(resp.Body)
-
-	// decode
-	var result interface{}
-	err = json.Unmarshal(b, &result)
-
-	revel.INFO.Println(result)
-
-	return c.RenderJson(result)
-}
-
-type SearchResult struct {
-	statuses Statuses `json:statuses`
-}
-type Statuses struct {
-	Text []string `json:text`
 }
 
 func (c App) SetStatus(status string) revel.Result {
