@@ -1,3 +1,26 @@
+.theme-button-top, .theme-button-under {
+  background: #ffd54a;
+  border: 1px solid #fff;
+  border-radius: 87px;
+  box-shadow: 4px 6px 4px 2px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  display: inline-block;
+  font-size: 24px;
+  height: 60px;
+  letter-spacing: .63px;
+  padding: 10px;
+  width: 200px; }
+
+.header {
+  text-align: center;
+  background: #ffd54a;
+  color: #ab7f5d;
+  font-family: "Rounded Mplus 1c";
+  font-size: 20px;
+  font-weight: bold;
+  height: 30px;
+  letter-spacing: .52px; }
+
 .top {
   height: 600px;
   margin: 0 auto;
@@ -29,19 +52,6 @@
   letter-spacing: .89px;
   margin: 0 auto 30px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9); }
-
-.theme-button-top, .theme-button-under {
-  background: #ffd54a;
-  border: 1px solid #fff;
-  border-radius: 87px;
-  box-shadow: 4px 6px 4px 2px rgba(0, 0, 0, 0.5);
-  color: #fff;
-  display: inline-block;
-  font-size: 24px;
-  height: 60px;
-  letter-spacing: .63px;
-  padding: 10px;
-  width: 200px; }
 
 .theme-button-top {
   visibility: hidden; }

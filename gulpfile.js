@@ -42,7 +42,7 @@ gulp.task('ts', function () {
 });
 
 
-gulp.task('default', ['pug','sass','ts'], function() {
+gulp.task('auto-build', ['pug','sass','ts'], function() {
     gulp.watch(['./dev/pug/**/*.pug'], ['pug']);
     gulp.watch(['./dev/sass/**/*.sass'], ['sass']);
     gulp.watch(['./dev/typeScript/**/*.ts'], ['ts']);

@@ -9,8 +9,8 @@
   ],
   "tasks": [
     {
-      "taskName": "default",
-      "identifier": "default",
+      "taskName": "auto-build",
+      "identifier": "auto-build",
       "args": [],
       "isBuildCommand": true,
       "isWatching": false,

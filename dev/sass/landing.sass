@@ -1,31 +1,4 @@
-//rgbaの警告がきになるならつける// sass-lint:disable no-color-literals
-
-$desktop-width: 1024px
-
-$top-height: 600px
-
-//色宣言
-
-$white: #fff
-$color-text: #3f3f3f
-$gray: rgb(200, 200, 200)
-$yellow: #ffd54a
-//トップのバックグラウンドよう
-$color-top-start: #3f77ca 0%
-$color-top-middle: #53a0fe 47%
-$color-top-end: #7cfdf1 100%
-//アンダーのバックグラウンドよう
-$color-under-end: #77f2f2
-
-//^^^色宣言^^^
-
-=children-center
-  text-align: center
-
-=vertical-center
-  position: absolute
-  top: $top-height / 2
-  transform: translate3d(0, -50%, 0)
+@import 'common'
 
 // top  //
 .top
@@ -42,7 +15,7 @@ $color-under-end: #77f2f2
 
 .theme-wrapper
   +children-center
-  +vertical-center
+  +vertical-center($top-height)
   left: 100px
   visibility: hidden
 
@@ -58,18 +31,7 @@ $color-under-end: #77f2f2
   margin: 0 auto 30px
   text-shadow: 0 2px 4px rgba(0, 0, 0, .9)
 
-%theme-button
-  background: $yellow
-  border: 1px solid $white
-  border-radius: 87px
-  box-shadow: 4px 6px 4px 2px rgba(0, 0, 0, .5)
-  color: $white
-  display: inline-block
-  font-size: 24px
-  height: 60px
-  letter-spacing: .63px
-  padding: 10px
-  width: 200px
+
 
 .theme-button-top
   @extend %theme-button
@@ -169,7 +131,7 @@ $middle-img-width: 324px
   width: $desktop-width
 
   .under-wrapper
-    +vertical-center
+    +vertical-center($top-height)
     width: $desktop-width
 
 .under-text

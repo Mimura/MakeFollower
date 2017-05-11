@@ -1,0 +1,74 @@
+//rgbaの警告がきになるならつける// sass-lint:disable no-color-literals
+
+$desktop-width: 1024px
+
+$top-height: 600px
+
+//色宣言
+
+$white: #fff
+$color-text: #3f3f3f
+$gray: rgb(200, 200, 200)
+$color-main-button: #ffd54a
+//トップのバックグラウンドよう
+$color-top-start: #3f77ca 0%
+$color-top-middle: #53a0fe 47%
+$color-top-end: #7cfdf1 100%
+//アンダーのバックグラウンドよう
+$color-under-end: #77f2f2
+
+$color-header-bg: #ffd54a
+$color-header-text: #ab7f5d
+
+$font-theme: 'Rounded Mplus 1c'
+
+//^^^色宣言^^^
+
+$sm: 400px
+$md: 768px
+$xl: 1200px
+
+//=だとlinterに怒られる（コンパイルは通る）
+@mixin mq($breakpoint: $sm)
+  @media screen and (min-width: #{$breakpoint} )
+    @content
+
+
+
+//=は@mixinの省略
+=children-center
+  text-align: center
+
+=text-ommition
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+
+@mixin vertical-center($height)
+  position: absolute
+  top: $height / 2
+  transform: translate3d(0, -50%, 0)
+
+
+%theme-button
+  background: $color-main-button
+  border: 1px solid $white
+  border-radius: 87px
+  box-shadow: 4px 6px 4px 2px rgba(0, 0, 0, .5)
+  color: $white
+  display: inline-block
+  font-size: 24px
+  height: 60px
+  letter-spacing: .63px
+  padding: 10px
+  width: 200px
+
+.header
+  +children-center
+  background: $color-header-bg
+  color: $color-header-text
+  font-family: $font-theme
+  font-size: 20px
+  font-weight: bold
+  height: 30px
+  letter-spacing: .52px

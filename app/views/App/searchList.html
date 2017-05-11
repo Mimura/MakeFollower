@@ -6,26 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/public/img/favicon.png" rel="shortcut icon">
     <link href="/public/css/bootstrap-3.3.6.min.css" rel="stylesheet">
-    <link href="/public/css/landing.css" rel="stylesheet">
+    <link href="//fonts.googleapis.com/earlyaccess/roundedmplus1c.css" rel="stylesheet">
+    <link href="/public/css/userList.css" rel="stylesheet">
     <script src="/public/js/jquery-2.2.4.min.js"></script>
     <script src="/public/js/bootstrap-3.3.6.min.js"></script>
-  </head>
-  <header></header>
+  </head><!DOCTYPE html>
+  <html lang="ja"></html>
+  <header>
+    <div class="header">MakeFollower</div>
+  </header>
   <body>
-    <form id="main-form">
-      <input id="search-word" name="searchWord" type="">
-      <input id="search-button" name="searchButton" type="submit">
-    </form>
-    <ul id="x-user-list"></ul>
-    <h2>@つき</h2>
-    <div>
-      <ul>
-      {{range .mentions}}
-        <li>{{.Text}}</li>
-      {{end}}
-      </ul>
-      
-      
+    <div class="content"> 
+      <div class="form-search">
+        <div class="search">
+          <form id="form-search">
+            <input class="search-rect" id="search-word" name="searchWord" type="">
+            <input class="search-button" id="search-button" name="searchButton" type="submit" value="Search">
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="list-upper-band"> </div>
+    <div class="user-list"> 
+      <ul id="x-user-list"></ul>
     </div>
   </body>
   <script src="/public/js/searchList.js"></script>

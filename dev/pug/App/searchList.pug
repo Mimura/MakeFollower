@@ -4,31 +4,37 @@ html(lang="ja")
 
   - var title = "Search";
   - var myScripts=[];
-  - var myStyles=["/public/css/landing.css"];
+  - var myStyles=["/public/css/userList.css"];
 
   - var openPage="location.href='/App/Authenticate'"
 
   include ../templete/_head.pug
 
-  header
+  include ../templete/_header.pug
 
   body
-    //- 検索用のフォーム。アクション等はtsに記入。
-    form#main-form
-      input#search-word(name="searchWord" type="")
-      input#search-button(name="searchButton" type="submit")
+    div.content 
+      //- 検索用のフォーム。アクション等はtsに記入。
+      div.form-search
+        div.search
+          form#form-search
+            input.search-rect#search-word(name="searchWord" type="")
+            input.search-button#search-button(name="searchButton" type="submit" value="Search")
 
-    ul#x-user-list
+    div.list-upper-band 
+
+    div.user-list 
+      ul#x-user-list
 
 
-    h2 @つき
+      //- h2 @つき
 
-    div.
-      <ul>
-      {{range .mentions}}
-        <li>{{.Text}}</li>
-      {{end}}
-      </ul>
+      //- div.
+      //-   <ul>
+      //-   {{range .mentions}}
+      //-     <li>{{.Text}}</li>
+      //-   {{end}}
+      //-   </ul>
 
 
   script(src="/public/js/searchList.js")

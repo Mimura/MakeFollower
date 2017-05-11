@@ -1,0 +1,164 @@
+@import 'common'
+
+$color-search-rect-border: #979797
+$search-height: 26px
+$color-list-upper-band: #ffecab
+$color-text-shadow: #794d00
+
+
+%button-list
+  background: $color-main-button
+  border: 0
+  border-radius: 87px
+  box-shadow: 1px 2px 2px 0 rgba(0, 0, 0, .5)
+  color: $white
+  display: inline-block
+  font-size: 10px
+  font-weight: bold
+  height: 30px
+  letter-spacing: .26px
+  margin: 0 5% 0 0
+  padding: 0 0 3px
+  text-shadow: 2px 2px 2px $color-text-shadow
+  width: 45%
+
+
+body
+  font-family: $font-theme
+
+.content
+  width: 100%
+
+/////////検索
+
+.form-search
+  +children-center
+  margin: 13px 0 0
+
+
+.search
+  +children-center
+  height: $search-height
+  margin: 10px auto
+  position: relative
+  width: 274px
+
+.search-rect
+  position: absolute
+  border: 2px solid $color-search-rect-border
+  border-radius: 6px
+  left: 0
+  height: $search-height
+  width: 100%
+
+.search-button
+  background: $color-main-button
+  border: 0
+  border-radius: 6px
+  box-shadow: 1px 2px 2px 0 rgba(0, 0, 0, .5)
+  color: $color-header-text
+  height: $search-height
+  position: absolute
+  right: 0
+  top: -1px
+  width: 61px
+
+//^^^^^^^^^^検索
+
+//========リスト
+.list-upper-band
+  +children-center
+  background: $color-list-upper-band
+  color: $color-header-text
+  font-size: 20px
+  height: 30px
+  letter-spacing: .52px
+
+
+.user-list
+  width: 100%
+  +mq($md)
+    margin: 0 auto
+    width: $md
+
+ul
+  list-style: none
+  padding: 0
+
+.list-item
+  font-family:
+  height: 110px
+  margin: 10px 0 0
+  position: relative
+  width: 100%
+
+
+.list-icon
+  float: left
+  height: 60px
+  margin: 10px 0 0 20px
+  width: 60px
+
+.list-icon-img
+  border-radius: 100px
+  height: 100%
+  width: 100%
+
+.list-names
+  +text-ommition
+  float: left
+  font-size: 2vw
+  font-weight: bold
+  height: 60px
+  margin: 10px 0 0 10px
+  vertical-align: middle
+  width: 25%
+  +mq($md)
+    font-size: 15px
+    width: 40%
+
+.list-name
+  margin-bottom: 5px
+  margin-top: 10px
+  +mq($md)
+    margin-top: 5px
+
+.list-buttons
+  float: right
+  height: 50px
+  margin: 20px 0 0
+  padding-right: 20px
+  width: 50%
+  +mq($md)
+    width: 300px
+
+.list-to-follower-button
+  @extend %button-list
+  font-size: 10px
+
+
+.list-follow-button
+  @extend %button-list
+  font-size: 10px
+  margin: 0
+
+
+
+
+.list-description
+  +text-ommition
+  clear: both
+  font-size: 1vw
+  padding: 10px 20px
+  +mq($md)
+    font-size: 10px
+
+
+.list-border
+  border-bottom: inset 2px $gray
+  height: 0
+  margin: 0 auto
+  width: 80%
+
+//^^^^^^^^リスト
+

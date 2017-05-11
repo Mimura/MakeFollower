@@ -51,28 +51,24 @@
 /* 1 */
 /***/ function(module, exports) {
 
-	jQuery(function ($) {
-	    $('#main-form').submit(function (event) {
+	$(function ($) {
+	    $('#form-search').submit(function (event) {
 	        event.preventDefault();
 	        var $form = $(this);
 	        var $button = $form.find('#search-button');
-	        $.ajax({
-	            url: 'getSearch',
-	            type: 'GET',
-	            data: $form.serialize(),
-	            dataType: 'json',
-	            timeout: 10000,
-	            beforeSend: function (xhr, settings) {
-	                $button.prop('disabled', true);
-	            },
-	            complete: function (xhr, textStatus) {
-	                $button.prop('disabled', false);
-	            },
-	            success: function (result, textStatus, xhr) {
-	                console.log(result);
-	                let users = result;
-	                SetUserList(users);
-	            }
+	        $button.prop('disabled', true);
+	        API.search($form.serialize())
+	            .done((result, textStatus, xhr) => {
+	            console.log("成功");
+	            console.log(result);
+	            let users = result;
+	            SetUserList(users);
+	        })
+	            .always((xhr, textStatus) => {
+	            $button.prop('disabled', false);
+	        })
+	            .fail(() => {
+	            console.log("失敗");
 	        });
 	    });
 	});
@@ -80,15 +76,41 @@
 	    $("#x-user-list").html('');
 	    users.forEach(user => {
 	        let inner = '<li>' +
-	            '<img class = "list-icon" src="' + user.profile_image_url_https + '" alt="icon">' +
-	            '<div class = "list-name">' + user.name + '<div>' +
-	            '<div class = "list-description">' + user.description + '<div>' +
-	            '<button class = "list-to-follower-button" type="button" onclick="location.href=\'App/followerList\'">' + "フォロワー" + '</button>' +
-	            '<button class = "list-follow-button" type="button" onclick="location.href=\'/App/follow\'">' + "フォロー" + '</button>' +
-	            '</li>';
+	            '<div class = "list-item">' +
+	            '<div>' +
+	            '<div class = "list-icon" ><img class = "list-icon-img" src="' + user.profile_image_url_https + '" alt="icon"></div>' +
+	            '<div class = "list-names">' +
+	            '<div class = "list-name">' + user.name + '</div>' +
+	            '<div class = "list-screen-name">' + user.screen_name + '</div>' +
+	            '</div>' +
+	            '<div class = "list-buttons">' +
+	            '<button class = "list-to-follower-button" type="button" onclick="location.href=\'App/followerList\'">' + "Follower" + '</button>' +
+	            '<button class = "list-follow-button" type="button" onclick="location.href=\'/App/follow\'">' + "Follow" + '</button>' +
+	            '</div>' +
+	            '</div>' +
+	            '<div class = "list-description">' + user.description + '</div>' +
+	            '</div>' +
+	            '</li>' +
+	            '<div class = "list-border"></border>';
 	        $("#x-user-list").append(inner);
 	    });
 	}
+	class API {
+	    static search(data) {
+	        var defer = $.Deferred();
+	        $.ajax({
+	            url: 'getSearch',
+	            type: 'GET',
+	            data: data,
+	            dataType: 'json',
+	            timeout: 10000,
+	            success: defer.resolve,
+	            error: defer.reject
+	        });
+	        return defer.promise();
+	    }
+	}
+	;
 
 
 /***/ }
