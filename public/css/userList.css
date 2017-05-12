@@ -30,6 +30,9 @@ body {
 .content {
   width: 100%; }
 
+.to-inline {
+  display: inline; }
+
 .form-search {
   text-align: center;
   margin: 13px 0 0; }

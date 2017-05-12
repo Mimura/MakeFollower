@@ -60,6 +60,7 @@
 	        API.search($form.serialize())
 	            .done((result, textStatus, xhr) => {
 	            console.log("成功");
+	            console.log("form :" + $form.serialize());
 	            console.log(result);
 	            let users = result;
 	            SetUserList(users);
@@ -81,11 +82,17 @@
 	            '<div class = "list-icon" ><img class = "list-icon-img" src="' + user.profile_image_url_https + '" alt="icon"></div>' +
 	            '<div class = "list-names">' +
 	            '<div class = "list-name">' + user.name + '</div>' +
-	            '<div class = "list-screen-name">' + user.screen_name + '</div>' +
+	            '<div class = "list-screen-name">@' + user.screen_name + '</div>' +
 	            '</div>' +
-	            '<div class = "list-buttons">' +
-	            '<button class = "list-to-follower-button" type="button" onclick="location.href=\'App/followerList\'">' + "Follower" + '</button>' +
-	            '<button class = "list-follow-button" type="button" onclick="location.href=\'/App/follow\'">' + "Follow" + '</button>' +
+	            '<div class = "list-buttons" id = "list-buttons">' +
+	            '<form class = "form-follower to-inline" >' +
+	            '<input class = "list-to-follower-button" name = "list-button" value = "Follower" type="submit" >' +
+	            '<input name = "screen-name" value = "' + user.screen_name + '" type="hidden" >' +
+	            '</form>' +
+	            '<form class = "form-follow to-inline">' +
+	            '<input class = "list-follow-button" name = "list-button" value = "Follow" type="submit" >' +
+	            '<input name = "screen-name" value = "' + user.screen_name + '" type="hidden" >' +
+	            '</form>' +
 	            '</div>' +
 	            '</div>' +
 	            '<div class = "list-description">' + user.description + '</div>' +
@@ -93,6 +100,28 @@
 	            '</li>' +
 	            '<div class = "list-border"></border>';
 	        $("#x-user-list").append(inner);
+	    });
+	    SetFollowerButtonEvent();
+	    SetFollowButtonEvent();
+	}
+	function SetFollowerButtonEvent() {
+	    let forms = $('.form-follower');
+	    forms.off('submit');
+	    forms.submit(function (event) {
+	        event.preventDefault();
+	        var $form = $(this);
+	        console.log("リストボタンイベント");
+	        console.log("formの中身" + $form.serialize());
+	    });
+	}
+	function SetFollowButtonEvent() {
+	    let forms = $('.form-follow');
+	    forms.off('submit');
+	    forms.submit(function (event) {
+	        event.preventDefault();
+	        var $form = $(this);
+	        console.log("リストボタンイベント");
+	        console.log("formの中身" + $form.serialize());
 	    });
 	}
 	class API {
