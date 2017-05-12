@@ -1,4 +1,8 @@
 
+//検索条件ワードの保存
+var searchWord :string = "";
+var searchPage :number = 0;
+
 $(function ($) {
     $('#form-search').submit(function (event) {
         // HTMLでの送信をキャンセル
@@ -7,9 +11,17 @@ $(function ($) {
         // 操作対象のフォーム要素を取得
         var $form = $(this);
 
+        searchWord = $('#search-word').val();
+        searchPage = 1;
+
         //ボタンを無効化
         var $button = $form.find('#search-button');
         $button.prop('disabled', true);
+
+        //初期化
+        $("#x-user-list").html('');
+        
+        console.log("シリアライズしたやつ　" + $form.serialize());
 
         API.search($form.serialize())
         .done(
@@ -17,6 +29,7 @@ $(function ($) {
                 console.log("成功");
                 //リスト初期化
                 console.log(result);
+
                 let users : User[] = result as User[];
 
                 SetUserList(users);
@@ -41,9 +54,42 @@ $(function ($) {
 
 })
 
+
+let prevContentBottom = -10;
+$(window).scroll(function(){
+    let contentBottom = $('#x-user-list').offset().top + $('#x-user-list').height();
+    let displayBottom = $(window).scrollTop() + $(window).height();
+
+    if (contentBottom - displayBottom < 100){
+        if(contentBottom == prevContentBottom){
+            return;
+        }
+        prevContentBottom = contentBottom;
+
+        searchPage++;
+        API.search('searchWord='+searchWord+'&page='+searchPage)
+        .done(
+            (result, textStatus, xhr) => {
+                let users : User[] = result as User[];
+
+                SetUserList(users);
+            }
+        )
+        .always(
+            (xhr, textStatus) => {
+
+            },
+        )
+        .fail(
+            () =>{
+                //エラー処理
+                console.log("失敗");
+            }
+        )
+    }
+});
+
 function SetUserList(users: User[]){
-    //初期化
-    $("#x-user-list").html('');
 
     users.forEach(user => {
         let inner = 

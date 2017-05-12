@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 
 	"github.com/revel/revel"
 )
@@ -39,7 +40,7 @@ func (c App) SearchList() revel.Result {
 }
 
 // GetSearch 検索する
-func (c App) GetSearch(status string, searchWord string) revel.Result {
+func (c App) GetSearch(status string, searchWord string, page int) revel.Result {
 	user := getUserFromSession(c)
 	if user.AccessToken == nil {
 		return c.Redirect(App.Index)
@@ -47,7 +48,7 @@ func (c App) GetSearch(status string, searchWord string) revel.Result {
 	// We have a token, so look for mentions.
 	resp, err := TWITTER.Get(
 		"https://api.twitter.com/1.1/users/search.json",
-		map[string]string{"q": searchWord, "f": "users", "src": "typd", "count": "20", "page": "0"},
+		map[string]string{"q": searchWord, "f": "users", "src": "typd", "count": "20", "page": strconv.Itoa(page)},
 		user.AccessToken)
 	if err != nil {
 		revel.ERROR.Println(err)

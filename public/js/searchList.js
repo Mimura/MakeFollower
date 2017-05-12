@@ -51,16 +51,20 @@
 /* 1 */
 /***/ function(module, exports) {
 
+	var searchWord = "";
+	var searchPage = 0;
 	$(function ($) {
 	    $('#form-search').submit(function (event) {
 	        event.preventDefault();
 	        var $form = $(this);
+	        searchWord = $('#search-word').val();
+	        searchPage = 1;
 	        var $button = $form.find('#search-button');
 	        $button.prop('disabled', true);
+	        $("#x-user-list").html('');
 	        API.search($form.serialize())
 	            .done((result, textStatus, xhr) => {
 	            console.log("成功");
-	            console.log("form :" + $form.serialize());
 	            console.log(result);
 	            let users = result;
 	            SetUserList(users);
@@ -73,8 +77,29 @@
 	        });
 	    });
 	});
+	let prevContentBottom = -10;
+	$(window).scroll(function () {
+	    let contentBottom = $('#x-user-list').offset().top + $('#x-user-list').height();
+	    let displayBottom = $(window).scrollTop() + $(window).height();
+	    if (contentBottom - displayBottom < 100) {
+	        if (contentBottom == prevContentBottom) {
+	            return;
+	        }
+	        prevContentBottom = contentBottom;
+	        searchPage++;
+	        API.search('searchWord=' + searchWord + '&page=' + searchPage)
+	            .done((result, textStatus, xhr) => {
+	            let users = result;
+	            SetUserList(users);
+	        })
+	            .always((xhr, textStatus) => {
+	        })
+	            .fail(() => {
+	            console.log("失敗");
+	        });
+	    }
+	});
 	function SetUserList(users) {
-	    $("#x-user-list").html('');
 	    users.forEach(user => {
 	        let inner = '<li>' +
 	            '<div class = "list-item">' +
