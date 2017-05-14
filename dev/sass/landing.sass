@@ -2,46 +2,59 @@
 
 // top  //
 .top
+  +children-center
+  +max-w
   height: $top-height
-  margin: 0 auto
   position: relative
-  width: $desktop-width
+  +mq($desktop-width)
+    margin: 0 auto
+    width: $desktop-width
 
 .top-bg
+  +max-w
   background-image: linear-gradient(to top, $color-top-start, $color-top-middle , $color-top-end)
   height: $top-height
   position: absolute
-  width: $desktop-width
+  +mq($desktop-width)
+    width: $desktop-width
 
 .theme-wrapper
   +children-center
   +vertical-center($top-height)
-  left: 100px
-  visibility: hidden
+  width: 100%
+  +mq($desktop-width)
+    left: 100px
+    width: 360px
 
 .theme-text
   color: $white
   font-size: 34.13px
   letter-spacing: .89px
   text-shadow: 0 2px 4px rgba(0, 0, 0, .9)
+  +mq($desktop-width)
+    font-size: 34.13px
 
 .theme-sub-text
   color: $white
   letter-spacing: .89px
   margin: 0 auto 30px
   text-shadow: 0 2px 4px rgba(0, 0, 0, .9)
+  +mq($desktop-width)
 
 
 
 .theme-button-top
   @extend %theme-button
-  visibility: hidden
+  +mq($desktop-width)
+    visibility: hidden
 
 %svg-wave
   bottom: 0
   left: 50%
   position: absolute
   transform: translate3d(-50%, 0, 0)
+  width: 100%
+
 
 .svg-wave-front
   @extend %svg-wave
@@ -53,53 +66,74 @@
   @extend %svg-wave
 
 .svg-camome
-  height: 537px
-  left: 568px
-  position: absolute
-  top: 10px
-  width: 449px
+  display: none
+  +mq($desktop-width)
+    display: inline
+    height: 537px
+    left: 568px
+    position: absolute
+    top: 10px
+    visibility: visible
+    width: 449px
 
 .svg-camome-main
-  left: 568px
-  position: absolute
-  top: 10px
+  display: none
+  +mq($desktop-width)
+    display: inline
+    left: 568px
+    position: absolute
+    visibility: visible
+    top: 10px
 
 //^^^ top ^^^//
 
 // middle //
 .middle
-  height: 512px
-  margin: 0 auto
-  width: $desktop-width
+  +max-w
+  +mq($desktop-width)
+    height: 512px
+    margin: 0 auto
+    width: $desktop-width
 
 .title-middle
-  display: table-cell
-  height: 166px
-  margin: 0 auto
-  text-align: center
-  vertical-align: middle
-  width: $desktop-width
+  +max-w
+  +children-center
+  +mq($desktop-width)
+    display: table-cell
+    height: 166px
+    margin: 0 auto
+    text-align: center
+    vertical-align: middle
+    width: $desktop-width
 
 $img-margin-right: 5px
 $middle-img-width: 324px
 
 .middle-rapper
+  +max-w
   +children-center
-  display: flex
-  height: 500px
-  justify-content: center
+  +mq($desktop-width)
+    display: flex
+    height: 500px
+    justify-content: center
 
   div
-    border-right: 2px solid $gray
-    height: 224px
-    margin-right: $img-margin-right
     position: relative
     width: $middle-img-width
+    margin: 0 auto
+    +mq($desktop-width)
+      height: 224px
+      border-bottom: 0
+      border-right: 2px solid $gray
+      margin: 0
+      margin-right: $img-margin-right
 
     &:last-child
-      border-right: 0
-      margin-right: 0
-      width: $middle-img-width
+      border-bottom: 0
+      +mq($desktop-width)
+        border-right: 0
+        margin-right: 0
+
 
   .svg-vec
     left: 0
@@ -107,13 +141,13 @@ $middle-img-width: 324px
     top: 0
 
   .middle-text
-    color: $color-text
     font-size: 15px
     left: 50%
     letter-spacing: .2em
     position: absolute
     top: 160px
     transform: translate3d(-50%, 0, 0)
+    color: $color-text
     width: $middle-img-width * .8
 
 
@@ -124,15 +158,19 @@ $middle-img-width: 324px
 // under
 .under
   +children-center
+  +max-w
   background-image: linear-gradient(-180deg, $white 0%, $color-under-end 100%)
   height: 512px
-  margin: 0 auto
   position: relative
-  width: $desktop-width
+  margin: 0 auto
+  +mq($desktop-width)
+    width: $desktop-width
 
   .under-wrapper
+    +max-w
     +vertical-center($top-height)
-    width: $desktop-width
+    +mq($desktop-width)
+      width: $desktop-width
 
 .under-text
   color: $white
@@ -142,6 +180,7 @@ $middle-img-width: 324px
 
 .theme-button-under
   @extend %theme-button
-  margin: 50px 0
+  +mq($desktop-width)
+    margin: 50px 0
 
 //^^^under

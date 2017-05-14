@@ -27,6 +27,7 @@ func (c App) Index() revel.Result {
 	if user.AccessToken == nil {
 		return c.Render()
 	}
+	return c.Render()
 	return c.Redirect(App.SearchList)
 }
 
