@@ -121,8 +121,8 @@ function SetUserList(users: User[]){
                 '</div>'+
                 '<div class = "list-description">'+user.description+'</div>'+
             '</div>'+
-        '</li>'+
-        '<div class = "list-border"></border>'
+            '<div class = "list-border"></div>'
+        '</li>'
         ;
 
         $("#x-user-list").append(inner);
@@ -167,7 +167,8 @@ function SetFollowButtonEvent()
         API.sendFollow($form.serialize())
         .done(
             (result, textStatus, xhr) => {
-                console.log("フォロー成功？");
+                console.log("フォロー成功");
+                $form.parents("li").hide();
             }
         )
         .always(
