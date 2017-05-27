@@ -27,7 +27,6 @@ func (c App) Index() revel.Result {
 	if user.AccessToken == nil {
 		return c.Render()
 	}
-	return c.Render()
 	return c.Redirect(App.SearchList)
 }
 
@@ -98,10 +97,8 @@ func getUserFromSession(c App) *models.User {
 	userData.AccessToken = &oauth.AccessToken{Token: "", Secret: ""}
 	userData.RequestToken.Token = c.Session[userName+"_request_token"]
 	userData.RequestToken.Secret = c.Session[userName+"_request_secret"]
-	revel.INFO.Println(userData.RequestToken)
 	userData.AccessToken.Token = c.Session[userName+"_access_token"]
 	userData.AccessToken.Secret = c.Session[userName+"_access_secret"]
-	revel.INFO.Println(userData.AccessToken)
 	if userData.AccessToken.Token == "" {
 		userData.AccessToken = nil
 	}

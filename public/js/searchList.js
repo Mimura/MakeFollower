@@ -58,15 +58,16 @@
 	        event.preventDefault();
 	        var $form = $(this);
 	        searchWord = $('#search-word').val();
-	        searchPage = 1;
 	        var $button = $form.find('#search-button');
 	        $button.prop('disabled', true);
 	        $("#x-user-list").html('');
-	        API.search($form.serialize())
+	        console.log("シリアライズしたやつ　" + $form.serialize());
+	        searchPage = 1;
+	        API.search($form.serialize() + '&page=' + searchPage)
 	            .done((result, textStatus, xhr) => {
 	            console.log("成功");
 	            console.log(result);
-	            let users = result;
+	            let users = OnGetSearchedList(result);
 	            SetUserList(users);
 	        })
 	            .always((xhr, textStatus) => {
@@ -86,10 +87,10 @@
 	            return;
 	        }
 	        prevContentBottom = contentBottom;
-	        searchPage++;
+	        console.log("ページ : " + searchPage);
 	        API.search('searchWord=' + searchWord + '&page=' + searchPage)
 	            .done((result, textStatus, xhr) => {
-	            let users = result;
+	            let users = OnGetSearchedList(result);
 	            SetUserList(users);
 	        })
 	            .always((xhr, textStatus) => {
@@ -99,6 +100,12 @@
 	        });
 	    }
 	});
+	function OnGetSearchedList(result) {
+	    let received = result;
+	    let users = received.userDataArray;
+	    searchPage = received.nextPage;
+	    return users;
+	}
 	function SetUserList(users) {
 	    users.forEach(user => {
 	        let inner = '<li>' +
@@ -106,7 +113,7 @@
 	            '<div>' +
 	            '<div class = "list-icon" ><img class = "list-icon-img" src="' + user.profile_image_url_https + '" alt="icon"></div>' +
 	            '<div class = "list-names">' +
-	            '<div class = "list-name">' + user.name + '</div>' +
+	            '<a class = "list-name" href = "https://twitter.com/' + user.screen_name + '" >' + user.name + '</a>' +
 	            '<div class = "list-screen-name">@' + user.screen_name + '</div>' +
 	            '</div>' +
 	            '<div class = "list-buttons" id = "list-buttons">' +

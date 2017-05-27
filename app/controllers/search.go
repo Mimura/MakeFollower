@@ -3,6 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"io/ioutil"
+	"makeFollower/app/models"
 	"net/http"
 	"strconv"
 
@@ -15,28 +16,42 @@ func (c App) SearchList() revel.Result {
 	if user.AccessToken == nil {
 		return c.Redirect(App.Index)
 	}
-	// We have a token, so look for mentions.
-	resp, err := TWITTER.Get(
-		"https://api.twitter.com/1.1/statuses/mentions_timeline.json",
-		map[string]string{"count": "10"},
-		user.AccessToken)
-	if err != nil {
-		revel.ERROR.Println(err)
-		return c.Render()
-	}
-	defer resp.Body.Close()
 
-	// Extract the mention text.
-	mentions := []struct {
-		Text string `json:"text"`
-	}{}
-	err = json.NewDecoder(resp.Body).Decode(&mentions)
-	if err != nil {
-		revel.ERROR.Println(err)
-	}
-	revel.INFO.Println(mentions)
+	i := 0
+	cursorParam := ""
+	const CountParamName = "count"
+	const CountParam = "5000"
+	const StringifyParamName = "stringify_ids"
+	const StringifyParam = "true"
+	const CursorParamName = "cursor"
 
-	return c.Render(mentions)
+	cursorInt := 1
+	for cursorInt >= 1 && i < 15 {
+		sendParam := map[string]string{CountParamName: CountParam, StringifyParamName: StringifyParam, CursorParamName: cursorParam}
+		//初回だけcorsor(ページ指定みたいなもの)は送らない
+		if i <= 0 {
+			sendParam = map[string]string{CountParamName: CountParam, StringifyParamName: StringifyParam}
+		}
+
+		resp, err := sendGetTwitter(uRLFriendsIDs, sendParam, user)
+		if err != nil {
+			return c.Render()
+		}
+		defer resp.Body.Close()
+
+		tmpList := decodeFollowIDs(resp)
+
+		followIDList.IDs = append(followIDList.IDs, tmpList.IDs...)
+		cursorParam = tmpList.NextCursorStr
+		cursorInt, err = strconv.Atoi(cursorParam)
+		if err != nil {
+			cursorInt = 0
+		}
+
+		i++
+	}
+
+	return c.Render(followIDList)
 }
 
 // GetSearch 検索する
@@ -45,25 +60,64 @@ func (c App) GetSearch(status string, searchWord string, page int) revel.Result 
 	if user.AccessToken == nil {
 		return c.Redirect(App.Index)
 	}
-	// We have a token, so look for mentions.
+
+	result := []userData{}
+	count := 0
+	//20以上になるか100回まで回す
+	for len(result) < 20 && count < 100 {
+
+		param := map[string]string{"q": searchWord, "f": "users", "src": "typd", "count": "20", "page": strconv.Itoa(page)}
+		resp, err := sendGetTwitter(uRLUsersSearch, param, user)
+		if err != nil {
+			return c.Render()
+		}
+		defer resp.Body.Close()
+
+		tmpResult := decodeSearchUser(resp)
+
+		for _, value := range tmpResult {
+			if value.UserID == "1" {
+
+			}
+		}
+
+		result = append(result, tmpResult...)
+		count++
+		page++
+	}
+
+	sendResult := sendData{UserDataArray: result, NextPage: page}
+
+	revel.INFO.Println(sendResult)
+
+	return c.RenderJson(sendResult)
+}
+
+func sendGetTwitter(url string, param map[string]string, user *models.User) (*http.Response, error) {
 	resp, err := TWITTER.Get(
-		"https://api.twitter.com/1.1/users/search.json",
-		map[string]string{"q": searchWord, "f": "users", "src": "typd", "count": "20", "page": strconv.Itoa(page)},
+		url,
+		param,
 		user.AccessToken)
 	if err != nil {
 		revel.ERROR.Println(err)
-		return c.Render()
 	}
-	defer resp.Body.Close()
 
-	result := decodeSearchUser(resp)
-	// result := decodeToInterface(resp)
-
-	return c.RenderJson(result)
+	return resp, err
 }
 
 func decodeSearchUser(response *http.Response) []userData {
 	result := []userData{}
+
+	err := json.NewDecoder(response.Body).Decode(&result)
+	if err != nil {
+		revel.ERROR.Println(err)
+	}
+
+	return result
+}
+
+func decodeFollowIDs(response *http.Response) followList {
+	result := followList{}
 
 	err := json.NewDecoder(response.Body).Decode(&result)
 	if err != nil {
@@ -97,12 +151,27 @@ func decodeToInterface(response *http.Response) interface{} {
 	return result
 }
 
+var followIDList = followList{}
+
+const uRLUsersSearch = "https://api.twitter.com/1.1/users/search.json"
+const uRLFriendsIDs = "https://api.twitter.com/1.1/friends/ids.json"
+
+type sendData struct {
+	UserDataArray []userData `json:"userDataArray"`
+	NextPage      int        `json:"nextPage"`
+}
+
 type userData struct {
 	Description string `json:"description"`
 	ID          int    `json:"id"`
 	Name        string `json:"name"`
 	UserID      string `json:"screen_name"`
 	IconURL     string `json:"profile_image_url_https"`
+}
+
+type followList struct {
+	IDs           []string `json:"ids"`
+	NextCursorStr string   `json:"next_cursor_str"`
 }
 
 type statuses struct {

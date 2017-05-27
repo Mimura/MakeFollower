@@ -12,7 +12,6 @@ $(function ($) {
         var $form = $(this);
 
         searchWord = $('#search-word').val();
-        searchPage = 1;
 
         //ボタンを無効化
         var $button = $form.find('#search-button');
@@ -22,15 +21,15 @@ $(function ($) {
         $("#x-user-list").html('');
         
         console.log("シリアライズしたやつ　" + $form.serialize());
-
-        API.search($form.serialize())
+        searchPage = 1
+        API.search($form.serialize()+'&page='+searchPage)
         .done(
             (result, textStatus, xhr) => {
                 console.log("成功");
                 //リスト初期化
                 console.log(result);
 
-                let users : User[] = result as User[];
+                let users : User[] = OnGetSearchedList(result);
 
                 SetUserList(users);
             }
@@ -66,11 +65,11 @@ $(window).scroll(function(){
         }
         prevContentBottom = contentBottom;
 
-        searchPage++;
+        console.log("ページ : " + searchPage);
         API.search('searchWord='+searchWord+'&page='+searchPage)
         .done(
             (result, textStatus, xhr) => {
-                let users : User[] = result as User[];
+                let users : User[] = OnGetSearchedList(result);
 
                 SetUserList(users);
             }
@@ -89,6 +88,14 @@ $(window).scroll(function(){
     }
 });
 
+function OnGetSearchedList(result : {}): User[]
+{
+    let received : receivedData = result as receivedData;
+    let users : User[] = received.userDataArray;
+    searchPage = received.nextPage;
+    return users;
+}
+
 function SetUserList(users: User[]){
 
     users.forEach(user => {
@@ -98,7 +105,7 @@ function SetUserList(users: User[]){
                 '<div>'+
                     '<div class = "list-icon" ><img class = "list-icon-img" src="'+user.profile_image_url_https+'" alt="icon"></div>'+
                     '<div class = "list-names">'+
-                        '<div class = "list-name">'+user.name +'</div>'+
+                        '<a class = "list-name" href = "https://twitter.com/'+ user.screen_name +'" >'+user.name +'</a>'+
                         '<div class = "list-screen-name">@'+user.screen_name +'</div>'+
                     '</div>'+
                     '<div class = "list-buttons" id = "list-buttons">'+
@@ -180,6 +187,10 @@ class API{
     }
 };
   
+interface receivedData  {
+	userDataArray:User[];
+	nextPage:number;
+}
 interface User {
     description: string;
     id: string;
