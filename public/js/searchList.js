@@ -119,11 +119,11 @@
 	            '<div class = "list-buttons" id = "list-buttons">' +
 	            '<form class = "form-follower to-inline" >' +
 	            '<input class = "list-to-follower-button" name = "list-button" value = "Follower" type="submit" >' +
-	            '<input name = "screen-name" value = "' + user.screen_name + '" type="hidden" >' +
+	            '<input name = "screenName" value = "' + user.screen_name + '" type="hidden" >' +
 	            '</form>' +
 	            '<form class = "form-follow to-inline">' +
 	            '<input class = "list-follow-button" name = "list-button" value = "Follow" type="submit" >' +
-	            '<input name = "screen-name" value = "' + user.screen_name + '" type="hidden" >' +
+	            '<input name = "screenName" value = "' + user.screen_name + '" type="hidden" >' +
 	            '</form>' +
 	            '</div>' +
 	            '</div>' +
@@ -142,8 +142,6 @@
 	    forms.submit(function (event) {
 	        event.preventDefault();
 	        var $form = $(this);
-	        console.log("リストボタンイベント");
-	        console.log("formの中身" + $form.serialize());
 	    });
 	}
 	function SetFollowButtonEvent() {
@@ -152,6 +150,18 @@
 	    forms.submit(function (event) {
 	        event.preventDefault();
 	        var $form = $(this);
+	        var $button = $form.find('.list-follow-button');
+	        $button.prop('disabled', true);
+	        API.sendFollow($form.serialize())
+	            .done((result, textStatus, xhr) => {
+	            console.log("フォロー成功？");
+	        })
+	            .always((xhr, textStatus) => {
+	            $button.prop('disabled', false);
+	        })
+	            .fail(() => {
+	            console.log("失敗");
+	        });
 	        console.log("リストボタンイベント");
 	        console.log("formの中身" + $form.serialize());
 	    });
@@ -160,7 +170,20 @@
 	    static search(data) {
 	        var defer = $.Deferred();
 	        $.ajax({
-	            url: 'getSearch',
+	            url: 'GetSearch',
+	            type: 'GET',
+	            data: data,
+	            dataType: 'json',
+	            timeout: 10000,
+	            success: defer.resolve,
+	            error: defer.reject
+	        });
+	        return defer.promise();
+	    }
+	    static sendFollow(data) {
+	        var defer = $.Deferred();
+	        $.ajax({
+	            url: 'SendFollow',
 	            type: 'GET',
 	            data: data,
 	            dataType: 'json',

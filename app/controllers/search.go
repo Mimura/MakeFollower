@@ -93,6 +93,34 @@ func (c App) GetSearch(status string, searchWord string, page int) revel.Result 
 	return c.RenderJson(sendResult)
 }
 
+func (c App) SendFollow(screenName string) revel.Result {
+	user := getUserFromSession(c)
+	if user.AccessToken == nil {
+		return c.Redirect(App.Index)
+	}
+
+	param := map[string]string{"screen_name": screenName}
+	resp, err := sendPostTwitter(uRLFriehdShipsCreate, param, user)
+	if err != nil {
+		return c.Render()
+	}
+	defer resp.Body.Close()
+
+	return c.RenderJson(resp.Body)
+}
+
+func sendPostTwitter(url string, param map[string]string, user *models.User) (*http.Response, error) {
+	resp, err := TWITTER.Post(
+		url,
+		param,
+		user.AccessToken)
+	if err != nil {
+		revel.ERROR.Println(err)
+	}
+
+	return resp, err
+}
+
 func sendGetTwitter(url string, param map[string]string, user *models.User) (*http.Response, error) {
 	resp, err := TWITTER.Get(
 		url,
@@ -155,6 +183,8 @@ var followIDList = followList{}
 
 const uRLUsersSearch = "https://api.twitter.com/1.1/users/search.json"
 const uRLFriendsIDs = "https://api.twitter.com/1.1/friends/ids.json"
+const uRLFriehdShipsCreate = "https://api.twitter.com/1.1/friendships/create.json"
+const uRLMyAccountInfo = "https://api.twitter.com/1.1/account/settings.json"
 
 type sendData struct {
 	UserDataArray []userData `json:"userDataArray"`

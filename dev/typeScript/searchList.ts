@@ -111,11 +111,11 @@ function SetUserList(users: User[]){
                     '<div class = "list-buttons" id = "list-buttons">'+
                         '<form class = "form-follower to-inline" >'+
                             '<input class = "list-to-follower-button" name = "list-button" value = "Follower" type="submit" >'+
-                            '<input name = "screen-name" value = "'+user.screen_name+'" type="hidden" >'+
+                            '<input name = "screenName" value = "'+user.screen_name+'" type="hidden" >'+
                         '</form>'+
                         '<form class = "form-follow to-inline">'+
                             '<input class = "list-follow-button" name = "list-button" value = "Follow" type="submit" >'+
-                            '<input name = "screen-name" value = "'+user.screen_name+'" type="hidden" >'+
+                            '<input name = "screenName" value = "'+user.screen_name+'" type="hidden" >'+
                         '</form>'+
                     '</div>'+
                 '</div>'+
@@ -145,9 +145,6 @@ function SetFollowerButtonEvent()
         // 操作対象のフォーム要素を取得
         var $form = $(this);
 
-        console.log("リストボタンイベント");
-        console.log("formの中身" + $form.serialize());
-
     });
 }
 
@@ -163,6 +160,28 @@ function SetFollowButtonEvent()
         // 操作対象のフォーム要素を取得
         var $form = $(this);
 
+        //ボタンを無効化
+        var $button = $form.find('.list-follow-button');
+        $button.prop('disabled', true);
+
+        API.sendFollow($form.serialize())
+        .done(
+            (result, textStatus, xhr) => {
+                console.log("フォロー成功？");
+            }
+        )
+        .always(
+            (xhr, textStatus) => {
+                $button.prop('disabled', false);
+            },
+        )
+        .fail(
+            () =>{
+                //エラー処理
+                console.log("失敗");
+            }
+        )
+
         console.log("リストボタンイベント");
         console.log("formの中身" + $form.serialize());
 
@@ -175,7 +194,22 @@ class API{
         var defer = $.Deferred();
         // 送信
         $.ajax({
-            url: 'getSearch',
+            url: 'GetSearch',
+            type: 'GET',
+            data: data,
+            dataType: 'json',
+            timeout: 10000,  // 単位はミリ秒
+            success: defer.resolve,
+            error: defer.reject
+        });
+        return defer.promise();
+    }
+
+    static sendFollow(data : string) {
+        var defer = $.Deferred();
+        // 送信
+        $.ajax({
+            url: 'SendFollow',
             type: 'GET',
             data: data,
             dataType: 'json',
