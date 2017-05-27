@@ -119,11 +119,11 @@
 	            '<div class = "list-buttons" id = "list-buttons">' +
 	            '<form class = "form-follower to-inline" >' +
 	            '<input class = "list-to-follower-button" name = "list-button" value = "Follower" type="submit" >' +
-	            '<input name = "screenName" value = "' + user.screen_name + '" type="hidden" >' +
+	            '<input name = "userId" value = "' + user.id + '" type="hidden" >' +
 	            '</form>' +
 	            '<form class = "form-follow to-inline">' +
 	            '<input class = "list-follow-button" name = "list-button" value = "Follow" type="submit" >' +
-	            '<input name = "screenName" value = "' + user.screen_name + '" type="hidden" >' +
+	            '<input name = "userId" value = "' + user.id + '" type="hidden" >' +
 	            '</form>' +
 	            '</div>' +
 	            '</div>' +
