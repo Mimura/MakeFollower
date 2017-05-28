@@ -8,7 +8,7 @@
   height: 30px;
   letter-spacing: .52px; }
 
-.list-to-follower-button, .list-follow-button {
+.list-to-follower-button, .list-follow-button, .list-unfollow-button, .all-button {
   background: #ffd54a;
   border: 0;
   border-radius: 87px;
@@ -73,6 +73,7 @@ body {
   letter-spacing: .52px; }
 
 .user-list {
+  padding-bottom: 100px;
   width: 100%; }
   @media screen and (min-width: 768px) {
     .user-list {
@@ -135,11 +136,11 @@ ul {
     .list-buttons {
       width: 300px; } }
 
-.list-to-follower-button {
-  font-size: 10px; }
-
 .list-follow-button {
-  font-size: 10px;
+  margin: 0; }
+
+.list-unfollow-button {
+  background: #ff7575;
   margin: 0; }
 
 .list-description {
@@ -158,5 +159,25 @@ ul {
   height: 0;
   margin: 0 auto;
   width: 80%; }
+
+.footer {
+  text-align: center;
+  background-image: linear-gradient(-179deg, rgba(255, 255, 255, 0) 0%, #FFD863 100%);
+  bottom: 0;
+  height: 100px;
+  position: fixed;
+  width: 100%;
+  /* Rectangle 12: */ }
+
+.all-button {
+  background: #ab7f5d;
+  margin: 0;
+  width: 70px; }
+
+.ad-footer {
+  bottom: 0;
+  height: 50px;
+  position: fixed;
+  width: 100%; }
 
 /*# sourceMappingURL=../map/sassMap/userList.css.map */

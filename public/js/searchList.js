@@ -53,30 +53,11 @@
 
 	var searchWord = "";
 	var searchPage = 0;
+	var isHideFollowed = true;
+	var userItemList;
 	$(function ($) {
-	    $('#form-search').submit(function (event) {
-	        event.preventDefault();
-	        var $form = $(this);
-	        searchWord = $('#search-word').val();
-	        var $button = $form.find('#search-button');
-	        $button.prop('disabled', true);
-	        $("#x-user-list").html('');
-	        console.log("シリアライズしたやつ　" + $form.serialize());
-	        searchPage = 1;
-	        API.search($form.serialize() + '&page=' + searchPage)
-	            .done((result, textStatus, xhr) => {
-	            console.log("成功");
-	            console.log(result);
-	            let users = OnGetSearchedList(result);
-	            SetUserList(users);
-	        })
-	            .always((xhr, textStatus) => {
-	            $button.prop('disabled', false);
-	        })
-	            .fail(() => {
-	            console.log("失敗");
-	        });
-	    });
+	    SetAllButtonEvent();
+	    SetSearchButtonEvent();
 	});
 	let prevContentBottom = -10;
 	$(window).scroll(function () {
@@ -108,6 +89,12 @@
 	}
 	function SetUserList(users) {
 	    users.forEach(user => {
+	        let followButtonClass = "list-follow-button";
+	        let followButtonText = "Follow";
+	        if (user.is_followed) {
+	            followButtonClass = "list-unfollow-button";
+	            followButtonText = "UnFollow";
+	        }
 	        let inner = '<li>' +
 	            '<div class = "list-item">' +
 	            '<div>' +
@@ -119,11 +106,11 @@
 	            '<div class = "list-buttons" id = "list-buttons">' +
 	            '<form class = "form-follower to-inline" >' +
 	            '<input class = "list-to-follower-button" name = "list-button" value = "Follower" type="submit" >' +
-	            '<input name = "userId" value = "' + user.id + '" type="hidden" >' +
+	            '<input name = "userId" class = "hidden-user-id" value = "' + user.id + '" type="hidden" >' +
 	            '</form>' +
 	            '<form class = "form-follow to-inline">' +
-	            '<input class = "list-follow-button" name = "list-button" value = "Follow" type="submit" >' +
-	            '<input name = "userId" value = "' + user.id + '" type="hidden" >' +
+	            '<input class = "' + followButtonClass + '" name = "list-button" value = "' + followButtonText + '" type="submit" >' +
+	            '<input name = "userId" class = "hidden-user-id" value = "' + user.id + '" type="hidden" >' +
 	            '</form>' +
 	            '</div>' +
 	            '</div>' +
@@ -131,7 +118,15 @@
 	            '</div>' +
 	            '<div class = "list-border"></div>';
 	        '</li>';
-	        $("#x-user-list").append(inner);
+	        let $self = $(inner);
+	        $("#x-user-list").append($self);
+	        if (isHideFollowed && user.is_followed) {
+	            $self.hide();
+	        }
+	        userItemList[user.id] = new userItemData($self, user);
+	        console.log(userItemList[user.id].data.name);
+	        console.log("id : " + user.id);
+	        console.log("フォローしているかどうか" + user.is_followed);
 	    });
 	    SetFollowerButtonEvent();
 	    SetFollowButtonEvent();
@@ -150,12 +145,54 @@
 	    forms.submit(function (event) {
 	        event.preventDefault();
 	        var $form = $(this);
-	        var $button = $form.find('.list-follow-button');
+	        FollowOrUnFollow($form);
+	    });
+	}
+	function FollowOrUnFollow($form) {
+	    var val = $form.find('.hidden-user-id').val();
+	    if (userItemList[val] != null) {
+	        if (userItemList[val].data.is_followed) {
+	            UnFollow($form);
+	        }
+	    }
+	    Follow($form);
+	}
+	function UnFollow($form) {
+	}
+	function Follow($form) {
+	    var $button = $form.find('.list-follow-button');
+	    $button.prop('disabled', true);
+	    API.sendFollow($form.serialize())
+	        .done((result, textStatus, xhr) => {
+	        console.log("フォロー成功");
+	        $form.parents("li").hide();
+	    })
+	        .always((xhr, textStatus) => {
+	        $button.prop('disabled', false);
+	    })
+	        .fail(() => {
+	        console.log("失敗");
+	    });
+	    console.log("リストボタンイベント");
+	    console.log("formの中身" + $form.serialize());
+	}
+	function SetSearchButtonEvent() {
+	    $('#form-search').submit(function (event) {
+	        event.preventDefault();
+	        var $form = $(this);
+	        searchWord = $('#search-word').val();
+	        var $button = $form.find('#search-button');
 	        $button.prop('disabled', true);
-	        API.sendFollow($form.serialize())
+	        $("#x-user-list").html('');
+	        userItemList = {};
+	        searchPage = 1;
+	        console.log("シリアライズしたやつ　" + $form.serialize());
+	        API.search($form.serialize() + '&page=' + searchPage)
 	            .done((result, textStatus, xhr) => {
-	            console.log("フォロー成功");
-	            $form.parents("li").hide();
+	            console.log("成功");
+	            console.log(result);
+	            let users = OnGetSearchedList(result);
+	            SetUserList(users);
 	        })
 	            .always((xhr, textStatus) => {
 	            $button.prop('disabled', false);
@@ -163,9 +200,29 @@
 	            .fail(() => {
 	            console.log("失敗");
 	        });
-	        console.log("リストボタンイベント");
-	        console.log("formの中身" + $form.serialize());
 	    });
+	}
+	function SetAllButtonEvent() {
+	    let allButton = $('#all-button');
+	    allButton.click(function (event) {
+	        isHideFollowed = !isHideFollowed;
+	        UpdateListVisible(isHideFollowed);
+	    });
+	}
+	function UpdateListVisible(isHideFollowed) {
+	    for (var key in userItemList) {
+	        var userData = userItemList[key];
+	        if (!isHideFollowed) {
+	            userData.$element.show();
+	            continue;
+	        }
+	        if (userData.data.is_followed) {
+	            userData.$element.hide();
+	        }
+	        else {
+	            userData.$element.show();
+	        }
+	    }
 	}
 	class API {
 	    static search(data) {
@@ -196,6 +253,18 @@
 	    }
 	}
 	;
+	class IDJequery {
+	}
+	class userItemData {
+	    constructor($element, data) {
+	        this.$element = $element;
+	        this.data = data;
+	    }
+	}
+	class receivedData {
+	}
+	class User {
+	}
 
 
 /***/ }

@@ -51,15 +51,12 @@ func (c App) GetSearch(status string, searchWord string, page int) revel.Result 
 			return c.Render()
 		}
 
-		noFollowList := []userData{}
-		for _, value := range tmpResult {
+		for i, value := range tmpResult {
 			_, ok := followIDMap[strconv.Itoa(value.ID)]
-			if !ok {
-				noFollowList = append(noFollowList, value)
-			}
+			tmpResult[i].IsFollowed = ok
 		}
 
-		result = append(result, noFollowList...)
+		result = append(result, tmpResult...)
 		count++
 		page++
 	}
@@ -227,6 +224,7 @@ type userData struct {
 	Name        string `json:"name"`
 	UserID      string `json:"screen_name"`
 	IconURL     string `json:"profile_image_url_https"`
+	IsFollowed  bool   `json:"is_followed"`
 }
 
 type followList struct {
