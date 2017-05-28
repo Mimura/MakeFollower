@@ -86,6 +86,24 @@ func (c App) SendFollow(userId string) revel.Result {
 	return c.RenderJson(resp.Body)
 }
 
+func (c App) SendUnFollow(userId string) revel.Result {
+	user := getUserFromSession(c)
+	if user.AccessToken == nil {
+		return c.Redirect(App.Index)
+	}
+
+	param := map[string]string{"user_id": userId}
+	resp, err := sendPostTwitter(uRLFriehdShipsDestroy, param, user)
+	if err != nil {
+		return c.Render()
+	}
+	defer resp.Body.Close()
+
+	updateFollowListNoRequest(userId)
+
+	return c.RenderJson(resp.Body)
+}
+
 func sendPostTwitter(url string, param map[string]string, user *models.User) (*http.Response, error) {
 	resp, err := TWITTER.Post(
 		url,
@@ -120,6 +138,7 @@ func updateFollowList(user *models.User) error {
 	i := 0
 	cursorInt := 1
 	receiveData := followList{}
+	followIDMap = make(map[string]int)
 	for cursorInt >= 1 && i < 15 {
 		sendParam := map[string]string{CountParamName: CountParam, StringifyParamName: StringifyParam, CursorParamName: cursorParam}
 		//初回だけcorsor(ページ指定みたいなもの)は送らない
@@ -212,6 +231,7 @@ const uRLUsersSearch = "https://api.twitter.com/1.1/users/search.json"
 const uRLFriendsIDs = "https://api.twitter.com/1.1/friends/ids.json"
 const uRLFriehdShipsCreate = "https://api.twitter.com/1.1/friendships/create.json"
 const uRLMyAccountInfo = "https://api.twitter.com/1.1/account/settings.json"
+const uRLFriehdShipsDestroy = "https://api.twitter.com/1.1/friendships/destroy.json"
 
 type sendData struct {
 	UserDataArray []userData `json:"userDataArray"`

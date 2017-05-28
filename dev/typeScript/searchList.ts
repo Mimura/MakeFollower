@@ -141,16 +141,40 @@ function FollowOrUnFollow($form:JQuery)
     var val = $form.find('.hidden-user-id').val();
     if(userItemList[val] != null){
         if(userItemList[val].data.is_followed){
-            UnFollow($form);
+            UnFollow($form,val);
+            return;
         } 
     }
-    Follow($form);
+    Follow($form,val);
 }
-function UnFollow($form:JQuery){
+function UnFollow($form:JQuery,userId : string){
+    //ボタンを無効化
+    var $button = $form.find('.list-follow-button');
+    $button.prop('disabled', true);
+
+    API.sendUnFollow($form.serialize())
+    .done(
+        (result, textStatus, xhr) => {
+            $button.prop('class',"list-follow-button");
+            userItemList[userId].data.is_followed = false;
+            console.log("アンフォロー成功");
+        }
+    )
+    .always(
+        (xhr, textStatus) => {
+            $button.prop('disabled', false);
+        },
+    )
+    .fail(
+        () =>{
+            //エラー処理
+            console.log("失敗");
+        }
+    )
 
 }
 
-function Follow($form:JQuery){
+function Follow($form:JQuery,userId : string){
 
     //ボタンを無効化
     var $button = $form.find('.list-follow-button');
@@ -160,6 +184,7 @@ function Follow($form:JQuery){
     .done(
         (result, textStatus, xhr) => {
             console.log("フォロー成功");
+            userItemList[userId].data.is_followed = true;
             $form.parents("li").hide();
         }
     )
@@ -174,8 +199,6 @@ function Follow($form:JQuery){
             console.log("失敗");
         }
     )
-    console.log("リストボタンイベント");
-    console.log("formの中身" + $form.serialize());
 }
 
 function SetSearchButtonEvent()
@@ -275,6 +298,21 @@ class API{
         // 送信
         $.ajax({
             url: 'SendFollow',
+            type: 'GET',
+            data: data,
+            dataType: 'json',
+            timeout: 10000,  // 単位はミリ秒
+            success: defer.resolve,
+            error: defer.reject
+        });
+        return defer.promise();
+    }
+
+    static sendUnFollow(data : string) {
+        var defer = $.Deferred();
+        // 送信
+        $.ajax({
+            url: 'SendUnFollow',
             type: 'GET',
             data: data,
             dataType: 'json',

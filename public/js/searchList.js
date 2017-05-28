@@ -152,19 +152,35 @@
 	    var val = $form.find('.hidden-user-id').val();
 	    if (userItemList[val] != null) {
 	        if (userItemList[val].data.is_followed) {
-	            UnFollow($form);
+	            UnFollow($form, val);
+	            return;
 	        }
 	    }
-	    Follow($form);
+	    Follow($form, val);
 	}
-	function UnFollow($form) {
+	function UnFollow($form, userId) {
+	    var $button = $form.find('.list-follow-button');
+	    $button.prop('disabled', true);
+	    API.sendUnFollow($form.serialize())
+	        .done((result, textStatus, xhr) => {
+	        $button.prop('class', "list-follow-button");
+	        userItemList[userId].data.is_followed = false;
+	        console.log("アンフォロー成功");
+	    })
+	        .always((xhr, textStatus) => {
+	        $button.prop('disabled', false);
+	    })
+	        .fail(() => {
+	        console.log("失敗");
+	    });
 	}
-	function Follow($form) {
+	function Follow($form, userId) {
 	    var $button = $form.find('.list-follow-button');
 	    $button.prop('disabled', true);
 	    API.sendFollow($form.serialize())
 	        .done((result, textStatus, xhr) => {
 	        console.log("フォロー成功");
+	        userItemList[userId].data.is_followed = true;
 	        $form.parents("li").hide();
 	    })
 	        .always((xhr, textStatus) => {
@@ -173,8 +189,6 @@
 	        .fail(() => {
 	        console.log("失敗");
 	    });
-	    console.log("リストボタンイベント");
-	    console.log("formの中身" + $form.serialize());
 	}
 	function SetSearchButtonEvent() {
 	    $('#form-search').submit(function (event) {
@@ -242,6 +256,19 @@
 	        var defer = $.Deferred();
 	        $.ajax({
 	            url: 'SendFollow',
+	            type: 'GET',
+	            data: data,
+	            dataType: 'json',
+	            timeout: 10000,
+	            success: defer.resolve,
+	            error: defer.reject
+	        });
+	        return defer.promise();
+	    }
+	    static sendUnFollow(data) {
+	        var defer = $.Deferred();
+	        $.ajax({
+	            url: 'SendUnFollow',
 	            type: 'GET',
 	            data: data,
 	            dataType: 'json',
