@@ -58,12 +58,6 @@ function OnGetSearchedList(result : {}): User[]
 
 function SetUserList(users: User[]){
     users.forEach(user => {
-        let followButtonClass = "list-follow-button";
-        let followButtonText = "Follow";
-        if(user.is_followed){
-            followButtonClass = "list-unfollow-button";
-            followButtonText = "UnFollow";
-        }
         let inner = 
         '<li>'+
             '<div class = "list-item">'+
@@ -79,7 +73,11 @@ function SetUserList(users: User[]){
                             '<input name = "userId" class = "hidden-user-id" value = "'+user.id+'" type="hidden" >'+
                         '</form>'+
                         '<form class = "form-follow to-inline">'+
-                            '<input class = "'+followButtonClass+'" name = "list-button" value = "'+followButtonText+'" type="submit" >'+
+                            '<input class = "list-follow-button" name = "list-button" value = "Follow" type="submit" >'+
+                            '<input name = "userId" class = "hidden-user-id" value = "'+user.id+'" type="hidden" >'+
+                        '</form>'+
+                        '<form class = "form-unfollow to-inline">'+
+                            '<input class = "list-unfollow-button" name = "list-button" value = "Unfollow" type="submit" style="display:none" >'+
                             '<input name = "userId" class = "hidden-user-id" value = "'+user.id+'" type="hidden" >'+
                         '</form>'+
                     '</div>'+
@@ -92,8 +90,11 @@ function SetUserList(users: User[]){
 
         let $self =$(inner) 
         $("#x-user-list").append($self);
-        if(isHideFollowed&&user.is_followed){
-            $self.hide();
+
+        UpdateButtonVisible($self,user);
+
+        if(isHideFollowed){
+            UpdateItemVisible($self,user.is_followed);
         }
 
         userItemList[user.id] = new userItemData($self,user);
@@ -104,6 +105,7 @@ function SetUserList(users: User[]){
 
     SetFollowerButtonEvent();
     SetFollowButtonEvent();
+    SetUnFollowButtonEvent();
 
 }
 
@@ -132,32 +134,37 @@ function SetFollowButtonEvent()
         event.preventDefault();
         // 操作対象のフォーム要素を取得
         var $form = $(this);
-        FollowOrUnFollow($form);
+        var userId = $form.find('.hidden-user-id').val();
+        Follow($form,userId);
     });
 }
 
-function FollowOrUnFollow($form:JQuery)
+function SetUnFollowButtonEvent()
 {
-    var val = $form.find('.hidden-user-id').val();
-    if(userItemList[val] != null){
-        if(userItemList[val].data.is_followed){
-            UnFollow($form,val);
-            return;
-        } 
-    }
-    Follow($form,val);
+    let forms = $('.form-unfollow');
+    //既に登録されているものを消す
+    forms.off('submit');
+    forms.submit(function (event) {
+        // HTMLでの送信をキャンセル
+        event.preventDefault();
+        // 操作対象のフォーム要素を取得
+        var $form = $(this);
+        var userId = $form.find('.hidden-user-id').val();
+        UnFollow($form,userId);
+    });
 }
+
 function UnFollow($form:JQuery,userId : string){
     //ボタンを無効化
-    var $button = $form.find('.list-follow-button');
+    var $button = $form.find('.list-unfollow-button');
     $button.prop('disabled', true);
 
     API.sendUnFollow($form.serialize())
     .done(
         (result, textStatus, xhr) => {
-            $button.prop('class',"list-follow-button");
             userItemList[userId].data.is_followed = false;
             console.log("アンフォロー成功");
+            UpdateButtonVisible(userItemList[userId].$element,userItemList[userId].data);
         }
     )
     .always(
@@ -185,7 +192,10 @@ function Follow($form:JQuery,userId : string){
         (result, textStatus, xhr) => {
             console.log("フォロー成功");
             userItemList[userId].data.is_followed = true;
-            $form.parents("li").hide();
+            if(isHideFollowed){
+                UpdateItemVisible(userItemList[userId].$element,userItemList[userId].data.is_followed);
+            }
+            UpdateButtonVisible(userItemList[userId].$element,userItemList[userId].data);
         }
     )
     .always(
@@ -269,13 +279,34 @@ function UpdateListVisible(isHideFollowed : boolean)
             continue;
         }
 
-        if(userData.data.is_followed){
-            userData.$element.hide();
-        }else{
-            userData.$element.show();
-        }
+        UpdateItemVisible(userData.$element,userData.data.is_followed);
    }
 }
+
+function UpdateItemVisible($element:JQuery,isFollowed:boolean)
+{
+    if(isFollowed){
+        $element.hide();
+    }else{
+        $element.show();
+    }
+}
+
+function UpdateButtonVisible($item : JQuery,userData :User)
+{
+    let $followButton = $item.find(".list-follow-button");
+    let $unFollowButton = $item.find(".list-unfollow-button");
+    if(userData.is_followed){
+        $followButton.hide();
+        $unFollowButton.show();
+    }else{
+        $followButton.show();
+        $unFollowButton.hide();
+    }
+
+
+}
+
 
 class API{
     static search(data : string) {
