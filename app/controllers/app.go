@@ -52,7 +52,7 @@ func (c App) SetStatus(status string) revel.Result {
 func (c App) Authenticate(oauth_verifier string) revel.Result {
 	user := createUser()
 
-	requestToken, url, err := TWITTER.GetRequestTokenAndUrl("http://127.0.0.1:9002/App/AuthenticateBack")
+	requestToken, url, err := TWITTER.GetRequestTokenAndUrl("http://make-follower.3jigen.net/App/AuthenticateBack")
 
 	if err != nil {
 		revel.ERROR.Println("Error connecting to twitter:", err)
