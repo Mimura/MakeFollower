@@ -1,52 +1,37 @@
-# pug,sass,TypeScript,gulpを使ったハイカラなフロントエンド開発環境です
-#####ついでにサーバサイドにRevel(Go言語)、エディタにVSCodeを使っています
+# TwitterFollower補助ツール
+※現在開発中
 
-## Getting Started
-cloneして中に移動（Revelを使う場合は＄GOPATH/srcにcloneしてください）
+## 概要
+ブロガーやイラストレーターなど個人の知名度を上げたい人向けにTwiterのフォロワーを増やす補助をしてくれるツール
 
-npm install
+* キーワードから人気のユーザーを検索
+* フォロワーリストからフォロー
+* Followerボタンでその人のフォロワーを表示
 
-GoとRevelは必要ならinstall
+というように指定のユーザーのフォロワーをどんどんたどっていくことで自分に興味がありそうな人を探してフォローしていくのを手伝います
 
-いらないなら
+#### 実装予定
 
-```
-app/
-conf/
-messages/
-tests/
-```
+* 片思いフォロワーリスト表示
+* 片思われフォローリスト表示  
 
-はRevelで使われるフォルダなので消してください。
+URL:<http://make-follower.3jigen.net/>
 
-VSCodeを使わない人は.vscodeも消してください。
-
-## gulpのタスク
-
-それぞれのコンパイル用に
-```
-pug
-sass
-ts
-```
-タスクが用意してあります。
-
-dev以下のそれぞれのフォルダから
-
-htmlはView以下に
-
-sassとTypeScriptはpublicのcssとjs以下に
-
-sourceMapはpublicのMap以下に
-
-出力されます。
-
-ファイル変更があったら自動で更新するためのタスクは
-
-default
-
-として登録してあるのでこれを起動しておけばいいです。
-
-（VSCodeのショートカットで呼ぶためにこんな名前ですが変えても動きます） 
+### 使用技術
+#### フロント
+* TypeScript
+* JQuery
+* pug(jade)
+* sass
 
 
+#### サーバーサイド
+* Go
+* Revel
+* conohaVPS
+* nginx
+
+####その他
+* gulp
+* TwitterAPI
+* sketch3
